@@ -24,6 +24,8 @@ namespace Graphs
             G = new DrawG(picture.Width, picture.Height);
             E = new List<Edge>();
             picture.Image = G.GetBitmap();
+            label1.Text = "Таблица смежности\n";
+            label2.Text = "Таблица инцендентности\n";
         }
 
       
@@ -89,6 +91,9 @@ namespace Graphs
                 E.Clear();
                 G.clearSheet();
                 picture.Image = G.GetBitmap();
+                listBoxMatrix.Items.Clear();
+                label1.Text = "";
+                label2.Text = "";
             }
         }
 

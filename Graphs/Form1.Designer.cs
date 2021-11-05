@@ -48,7 +48,7 @@ namespace Graphs
             // 
             // DegreeOFVertex
             // 
-            this.DegreeOFVertex.Location = new System.Drawing.Point(797, 324);
+            this.DegreeOFVertex.Location = new System.Drawing.Point(872, 318);
             this.DegreeOFVertex.Name = "DegreeOFVertex";
             this.DegreeOFVertex.Size = new System.Drawing.Size(99, 28);
             this.DegreeOFVertex.TabIndex = 7;
@@ -76,7 +76,7 @@ namespace Graphs
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(797, 369);
+            this.button1.Location = new System.Drawing.Point(872, 363);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 35);
             this.button1.TabIndex = 10;
@@ -86,7 +86,7 @@ namespace Graphs
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(797, 420);
+            this.button2.Location = new System.Drawing.Point(872, 414);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(99, 35);
             this.button2.TabIndex = 11;
@@ -97,15 +97,15 @@ namespace Graphs
             // listBoxMatrix
             // 
             this.listBoxMatrix.FormattingEnabled = true;
-            this.listBoxMatrix.Location = new System.Drawing.Point(12, 511);
+            this.listBoxMatrix.Location = new System.Drawing.Point(12, 12);
             this.listBoxMatrix.Name = "listBoxMatrix";
-            this.listBoxMatrix.Size = new System.Drawing.Size(141, 95);
+            this.listBoxMatrix.Size = new System.Drawing.Size(179, 498);
             this.listBoxMatrix.TabIndex = 12;
             // 
             // saveButton
             // 
             this.saveButton.Image = global::Graphs.Properties.Resources.save;
-            this.saveButton.Location = new System.Drawing.Point(820, 273);
+            this.saveButton.Location = new System.Drawing.Point(895, 267);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(45, 45);
             this.saveButton.TabIndex = 6;
@@ -115,7 +115,7 @@ namespace Graphs
             // deleteALLButton
             // 
             this.deleteALLButton.Image = global::Graphs.Properties.Resources.Landfill;
-            this.deleteALLButton.Location = new System.Drawing.Point(820, 224);
+            this.deleteALLButton.Location = new System.Drawing.Point(895, 218);
             this.deleteALLButton.Name = "deleteALLButton";
             this.deleteALLButton.Size = new System.Drawing.Size(45, 45);
             this.deleteALLButton.TabIndex = 5;
@@ -125,7 +125,7 @@ namespace Graphs
             // deleteButton
             // 
             this.deleteButton.Image = global::Graphs.Properties.Resources.delete;
-            this.deleteButton.Location = new System.Drawing.Point(820, 174);
+            this.deleteButton.Location = new System.Drawing.Point(895, 168);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(45, 45);
             this.deleteButton.TabIndex = 4;
@@ -135,7 +135,7 @@ namespace Graphs
             // drawEdgeButton
             // 
             this.drawEdgeButton.Image = global::Graphs.Properties.Resources.Edge;
-            this.drawEdgeButton.Location = new System.Drawing.Point(820, 123);
+            this.drawEdgeButton.Location = new System.Drawing.Point(895, 117);
             this.drawEdgeButton.Name = "drawEdgeButton";
             this.drawEdgeButton.Size = new System.Drawing.Size(45, 45);
             this.drawEdgeButton.TabIndex = 3;
@@ -145,7 +145,7 @@ namespace Graphs
             // drawVertexButton
             // 
             this.drawVertexButton.Image = global::Graphs.Properties.Resources.Graph;
-            this.drawVertexButton.Location = new System.Drawing.Point(820, 78);
+            this.drawVertexButton.Location = new System.Drawing.Point(895, 72);
             this.drawVertexButton.Name = "drawVertexButton";
             this.drawVertexButton.Size = new System.Drawing.Size(45, 45);
             this.drawVertexButton.TabIndex = 2;
@@ -156,7 +156,7 @@ namespace Graphs
             // 
             this.selectButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.selectButton.Image = global::Graphs.Properties.Resources.mouse;
-            this.selectButton.Location = new System.Drawing.Point(820, 27);
+            this.selectButton.Location = new System.Drawing.Point(895, 21);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(45, 45);
             this.selectButton.TabIndex = 1;
@@ -165,16 +165,16 @@ namespace Graphs
             // 
             // picture
             // 
-            this.picture.Location = new System.Drawing.Point(12, 12);
+            this.picture.Location = new System.Drawing.Point(225, 21);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(766, 493);
+            this.picture.Size = new System.Drawing.Size(641, 484);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             this.picture.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picture_MouseClick);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(797, 472);
+            this.button3.Location = new System.Drawing.Point(872, 466);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(99, 44);
             this.button3.TabIndex = 13;
