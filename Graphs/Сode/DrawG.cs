@@ -78,7 +78,15 @@ namespace Graphs
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
             }
         }
-
+        public void EditEdge(Vertex V1, Vertex V2, Edge E, int numberE)
+        {
+            point = new PointF((V1.x + V2.x) / 2, (V1.y + V2.y) / 2);
+            string res = ((char)('a' + numberE)).ToString();
+            res += $"({E.weight})";
+            gr.DrawString(res, fo, br, point);
+            drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
+            drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
+        }
         public void drawALLGraph(List<Vertex> V, List<Edge> E)
         {
             //рисуем ребра
@@ -88,13 +96,17 @@ namespace Graphs
                 {
                     gr.DrawArc(darkGoldPen, (V[E[i].v1].x - 2 * R), (V[E[i].v1].y - 2 * R), 2 * R, 2 * R, 90, 270);
                     point = new PointF(V[E[i].v1].x - (int)(2.75 * R), V[E[i].v1].y - (int)(2.75 * R));
-                    gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                    string res = ((char)('a' + i)).ToString();
+                    res += $"({E[i].weight})";
+                    gr.DrawString(res, fo, br, point);
                 }
                 else
                 {
                     gr.DrawLine(darkGoldPen, V[E[i].v1].x, V[E[i].v1].y, V[E[i].v2].x, V[E[i].v2].y);
                     point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
-                    gr.DrawString(((char)('a' + i)).ToString(), fo, br, point);
+                    string res = ((char)('a' + i)).ToString();
+                    res += $"({E[i].weight})";
+                    gr.DrawString(res, fo, br, point);
                 }
             }
             //рисуем вершины
