@@ -71,7 +71,9 @@ namespace Graphs
             {
                 gr.DrawLine(darkGoldPen, V1.x, V1.y, V2.x, V2.y);
                 point = new PointF((V1.x + V2.x) / 2, (V1.y + V2.y) / 2);
-                gr.DrawString(((char)('a' + numberE)).ToString(), fo, br, point);
+                string res = ((char)('a' + numberE)).ToString();
+                res += $"({E.weight})";
+                gr.DrawString(res, fo, br, point);
                 drawVertex(V1.x, V1.y, (E.v1 + 1).ToString());
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
             }
