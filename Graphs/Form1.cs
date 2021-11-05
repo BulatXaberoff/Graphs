@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Graphs.Сode;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Graphs
@@ -130,28 +132,28 @@ namespace Graphs
             res +="Всего ребер "+ R+ " ,значит сумма степеней всех вершина равна удвоенному" +
                 " количеству ребер\n 2*"+R+"= "+num.ToString()+"\n";
             ;
-            label1.Text += num.ToString();
-            //listBoxMatrix.Items.Add(num);
             if((n*(n-1))/2==E.Count)
             {
                 res += "Граф является полным";
             }
-            MessageBox.Show(res);
+            listBoxMatrix.Items.Add(num);
+            listBoxMatrix.Items.AddRange(ToConvertStringArr(res));
             createIncAndOut();
 
 
         }
-       
 
-        
+
+
         private void picture_MouseClick(object sender, MouseEventArgs e)
         {
             //нажата кнопка "выбрать вершину", ищем степень вершины
+            createAdjAndOut();
             if (selectButton.Enabled == false)
             {
-                for (int i = 0; i < V.Count; i++)
+                for (int i = 1; i <= V.Count; i++)
                 {
-                    if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                    if (Math.Pow((V[i - 1].x - e.X), 2) + Math.Pow((V[i - 1].y - e.Y), 2) <= G.R * G.R)
                     {
                         if (selected1 != -1)
                         {
@@ -162,21 +164,48 @@ namespace Graphs
                         }
                         if (selected1 == -1)
                         {
-                            G.drawSelectedVertex(V[i].x, V[i].y);
-                            selected1 = i;
+                            G.drawSelectedVertex(V[i - 1].x, V[i - 1].y);
+                            selected1 = i - 1;
                             picture.Image = G.GetBitmap();
                             createAdjAndOut();
-                            //listBoxMatrix.Items.Clear();
                             int degree = 0;
                             for (int j = 0; j < V.Count; j++)
                                 degree += AMatrix[selected1, j];
-                            string deg = $"deg({i + 1})= {degree}";
+                            string deg = $"deg({i})= {degree}";
                             G.drawPow(e.X, e.Y, deg);
                             picture.Image = G.GetBitmap();
                             break;
                         }
                     }
+                    //Point point1 = new Point(e.X, e.Y);
+                    //Point point2 = new Point((V[i].x + V[i + 1].x) / 2, (V[i].y + V[i + 1].y) / 2);
+                    //InterSect interSect = InterSect.NoPoint;
+                    //InterSect res = new Circle(point1, 10) * new Circle(point2, 10);
+                    if (E.Count == i)
+                    {
+                        for (int j = 0; j < E.Count; j++)
+                        {
+                            if (AMatrix[E[j].v1, E[j].v2] == 1)
+                            {
+                                if (new Circle(new Point(e.X, e.Y), 10) *
+                            new Circle(new Point((V[E[j].v1].x + V[E[j].v2].x) / 2, (V[E[j].v1].y + V[E[j].v2].y) / 2), 10)
+                            != InterSect.NoPoint)
+                                {
+                                    Form2 newForm = new Form2();
+                                    newForm.ShowDialog();
+                                    E[j].weight = HelpClass.weight;
+                                    G.EditEdge(V[E[j].v1], V[E[j].v2], E[j], j);
+                                    G.clearSheet();
+                                    G.drawALLGraph(V, E);
+                                    picture.Image = G.GetBitmap();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                 }
+
 
             }
 
@@ -190,6 +219,7 @@ namespace Graphs
             //нажата кнопка "рисовать ребро"
             if (drawEdgeButton.Enabled == false)
             {
+
                 if (e.Button == MouseButtons.Left)
                 {
                     for (int i = 0; i < V.Count; i++)
@@ -203,15 +233,20 @@ namespace Graphs
                                 picture.Image = G.GetBitmap();
                                 break;
                             }
+
                             if (selected2 == -1)
                             {
+
                                 G.drawSelectedVertex(V[i].x, V[i].y);
                                 selected2 = i;
-                                E.Add(new Edge(selected1, selected2));
+                                Form2 newForm = new Form2();
+                                newForm.ShowDialog();
+                                E.Add(new Edge(selected1, selected2, HelpClass.weight));
                                 G.drawEdge(V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
                                 selected1 = -1;
                                 selected2 = -1;
                                 picture.Image = G.GetBitmap();
+
                                 break;
                             }
                         }
@@ -472,6 +507,10 @@ namespace Graphs
                 cycle.Add(i + 1);
                 DFScycle(i, i, E, color, -1, cycle);
             }
+        }
+        private string[] ToConvertStringArr(string obj)
+        {
+            return obj.Split('\n').Select(x => x.ToString()).ToArray();
         }
     }
 }
