@@ -29,13 +29,9 @@ namespace Graphs
         /// </summary>
         private void InitializeComponent()
         {
-            this.DegreeOFVertex = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.listBoxMatrix = new System.Windows.Forms.ListBox();
-            this.saveButton = new System.Windows.Forms.Button();
             this.deleteALLButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.drawEdgeButton = new System.Windows.Forms.Button();
@@ -43,18 +39,9 @@ namespace Graphs
             this.selectButton = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
-            // 
-            // DegreeOFVertex
-            // 
-            this.DegreeOFVertex.Location = new System.Drawing.Point(872, 318);
-            this.DegreeOFVertex.Name = "DegreeOFVertex";
-            this.DegreeOFVertex.Size = new System.Drawing.Size(99, 28);
-            this.DegreeOFVertex.TabIndex = 7;
-            this.DegreeOFVertex.Text = "Степень вершин";
-            this.DegreeOFVertex.UseVisualStyleBackColor = true;
-            this.DegreeOFVertex.Click += new System.EventHandler(this.DegreeOFVertex_Click);
             // 
             // label1
             // 
@@ -64,6 +51,7 @@ namespace Graphs
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "label1";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -74,26 +62,6 @@ namespace Graphs
             this.label2.TabIndex = 9;
             this.label2.Text = "label2";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(872, 363);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 35);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Элементарные пути";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(872, 414);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 35);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Количество циклов";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // listBoxMatrix
             // 
             this.listBoxMatrix.FormattingEnabled = true;
@@ -101,16 +69,6 @@ namespace Graphs
             this.listBoxMatrix.Name = "listBoxMatrix";
             this.listBoxMatrix.Size = new System.Drawing.Size(205, 498);
             this.listBoxMatrix.TabIndex = 12;
-            // 
-            // saveButton
-            // 
-            this.saveButton.Image = global::Graphs.Properties.Resources.save;
-            this.saveButton.Location = new System.Drawing.Point(895, 267);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(45, 45);
-            this.saveButton.TabIndex = 6;
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // deleteALLButton
             // 
@@ -174,26 +132,42 @@ namespace Graphs
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(872, 466);
+            this.button3.Location = new System.Drawing.Point(883, 311);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 44);
+            this.button3.Size = new System.Drawing.Size(150, 44);
             this.button3.TabIndex = 13;
-            this.button3.Text = "Все данные о графе";
+            this.button3.Text = "Показать данные";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Справедливость теоремы",
+            "Подсчет числа вершин",
+            "Число графов в подграфе",
+            "Оптимальный путь",
+            "Проверка на связность",
+            "Проверка пути на цикличность",
+            "Проверка на простоту цикла",
+            "Вычисление количество циклов",
+            "Проверка полноты графа"});
+            this.comboBox1.Location = new System.Drawing.Point(872, 269);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(161, 21);
+            this.comboBox1.TabIndex = 14;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 672);
+            this.ClientSize = new System.Drawing.Size(1045, 672);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listBoxMatrix);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.DegreeOFVertex);
-            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.deleteALLButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.drawEdgeButton);
@@ -216,14 +190,11 @@ namespace Graphs
         private System.Windows.Forms.Button drawEdgeButton;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button deleteALLButton;
-        private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button DegreeOFVertex;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListBox listBoxMatrix;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

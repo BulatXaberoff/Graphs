@@ -102,52 +102,6 @@ namespace Graphs
 
         }
 
-        private void DegreeOFVertex_Click(object sender, EventArgs e)
-        {
-            listBoxMatrix.Items.Clear();
-            int n = V.Count;
-            int num = 0;
-            createAdjAndOut();
-            G.clearSheet();
-            G.drawALLGraph(V, E);
-            picture.Image = G.GetBitmap();
-            AMatrix = new int[V.Count, V.Count];
-            G.fillAdjacencyMatrix(V.Count, E, AMatrix);
-            int count = 0;
-            string res = "Sigma\n";
-            
-            foreach (var item in V)
-            {
-                int x = item.x;
-                int y = item.y;
-                int degree = 0;
-                for (int j = 0; j < n; j++)
-                {
-                    degree += AMatrix[count, j];
-                    num += AMatrix[count, j];
-                }
-                string deg = $"deg({((char)('A'+count )).ToString()})= {degree}";
-                res += $"deg({((char)('A' + count)).ToString()})={degree}\n + \n";
-                G.drawPow(x, y, deg);
-                picture.Image = G.GetBitmap();
-                count++;
-            }
-
-            res += num.ToString()+"\n";
-            string R = E.Count.ToString();
-            res +="Всего ребер "+ R+ " ,значит сумма степеней всех вершина равна удвоенному" +
-                " количеству ребер\n 2*"+R+"= "+num.ToString()+"\n";
-            ;
-            if((n*(n-1))/2==E.Count)
-            {
-                res += "Граф является полным";
-            }
-            listBoxMatrix.Items.Add(num);
-            listBoxMatrix.Items.AddRange(ToConvertStringArr(res));
-            createIncAndOut();
-
-
-        }
 
 
 
@@ -427,7 +381,7 @@ namespace Graphs
                 if (cycle.Count >= 2)
                 {
                     cycle.Reverse();
-                    string s = cycle[0].ToString();
+                    string s = ((char)('A'+cycle[0]-1)).ToString();
                     for (int i = 1; i < cycle.Count; i++)
                         s += "-" + ((char)('A' + cycle[i])).ToString();
                     bool flag = false; //есть ли палиндром для этого цикла графа в листбоксе?
@@ -440,9 +394,9 @@ namespace Graphs
                     if (!flag)
                     {
                         cycle.Reverse();
-                        s = ('A').ToString();
+                        s = ((char)('A' + cycle[0]-1)).ToString();
                         for (int i = 1; i < cycle.Count; i++)
-                            s += "-" + ((char)('A'+cycle[i])).ToString();
+                            s += "-" + ((char)('A'+cycle[i]-1)).ToString();
                         catalogCycles.Add(s);
                     }
                     return;
@@ -509,13 +463,126 @@ namespace Graphs
                 List<int> cycle = new List<int>();
                 //поскольку в C# нумерация элементов начинается с нуля, то для
                 //удобочитаемости результатов поиска в список добавляем номер i + 1
-                cycle.Add(i + 1);
+                cycle.Add(i+1);
                 DFScycle(i, i, E, color, -1, cycle);
             }
         }
         private string[] ToConvertStringArr(string obj)
         {
             return obj.Split('\n').Select(x => x.ToString()).ToArray();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int numer = comboBox1.SelectedIndex+1;
+            switch (numer)
+            {
+                case 1:
+                    {
+                        listBoxMatrix.Items.Clear();
+                        int n = V.Count;
+                        int num = 0;
+                        createAdjAndOut();
+                        G.clearSheet();
+                        G.drawALLGraph(V, E);
+                        picture.Image = G.GetBitmap();
+                        AMatrix = new int[V.Count, V.Count];
+                        G.fillAdjacencyMatrix(V.Count, E, AMatrix);
+                        int count = 0;
+                        string res = "Sigma\n";
+
+                        foreach (var item in V)
+                        {
+                            int x = item.x;
+                            int y = item.y;
+                            int degree = 0;
+                            for (int j = 0; j < n; j++)
+                            {
+                                degree += AMatrix[count, j];
+                                num += AMatrix[count, j];
+                            }
+                            string deg = $"deg({((char)('A' + count)).ToString()})= {degree}";
+                            res += $"deg({((char)('A' + count)).ToString()})={degree}\n + \n";
+                            G.drawPow(x, y, deg);
+                            picture.Image = G.GetBitmap();
+                            count++;
+                        }
+
+                        res += num.ToString() + "\n";
+                        string R = E.Count.ToString();
+                        res += "Всего ребер " + R + " ,значит сумма степеней всех вершина равна удвоенному" +
+                            " количеству ребер\n 2*" + R + "= " + num.ToString() + "\n";
+                        ;
+                        if ((n * (n - 1)) / 2 == E.Count)
+                        {
+                            res += "Граф является полным";
+                        }
+                        listBoxMatrix.Items.Add(num);
+                        listBoxMatrix.Items.AddRange(ToConvertStringArr(res));
+                        createIncAndOut();
+
+                    }
+                    break;
+                case 2:
+                    int count1 = 0;
+                    int count2 = 0;
+                    AMatrix = new int[V.Count, V.Count];
+                    G.fillAdjacencyMatrix(V.Count, E, AMatrix);
+                    var sum = 0;
+                    for (int i = 0; i < V.Count; i++)
+                    {
+                        int temp = 0;
+
+                        for (int j = 0; j < V.Count; j++)
+                        {
+                            sum += AMatrix[i, j];
+                            temp += AMatrix[i, j];
+                        }
+                        if (sum % 2 != 0)
+                            count1++;
+                        else
+                            count2++;
+                        string deg = $"deg({((char)('A' + i)).ToString()})= {temp}";
+                        G.drawPow(V[i].x,V[i].y, deg);
+                        picture.Image = G.GetBitmap();
+                    }                
+                    
+                    string result = $"Количество четных степеней:{count2}\n";
+                    result += $"Количество нечетных степеней:{count1}\nИх сумма {count1+count2}";
+                    listBoxMatrix.Items.AddRange(ToConvertStringArr(result));
+                    break;
+                case 3:
+                    listBoxMatrix.Items.Clear();
+                    chainsSearch();
+                    break;
+                case 8:
+                    listBoxMatrix.Items.Clear();
+                    catalogCycles = new List<string>();
+                    cyclesSearch();
+                    foreach (var item in catalogCycles)
+                    {
+                        listBoxMatrix.Items.Add(item);
+                    }
+                    break;
+                case 9:
+                    int r = V.Count;
+                    string reуs= "";
+                    if ((r * (r - 1)) / 2 == E.Count)
+                    {
+                        reуs = "Граф является полным";
+                    }
+                    else
+                        reуs = "Граф не является полным";
+                    listBoxMatrix.Items.Add(reуs);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
