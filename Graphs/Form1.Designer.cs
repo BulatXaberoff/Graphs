@@ -97,9 +97,9 @@ namespace Graphs
             // listBoxMatrix
             // 
             this.listBoxMatrix.FormattingEnabled = true;
-            this.listBoxMatrix.Location = new System.Drawing.Point(12, 12);
+            this.listBoxMatrix.Location = new System.Drawing.Point(1, 12);
             this.listBoxMatrix.Name = "listBoxMatrix";
-            this.listBoxMatrix.Size = new System.Drawing.Size(179, 498);
+            this.listBoxMatrix.Size = new System.Drawing.Size(205, 498);
             this.listBoxMatrix.TabIndex = 12;
             // 
             // saveButton

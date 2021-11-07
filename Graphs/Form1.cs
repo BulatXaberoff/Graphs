@@ -104,6 +104,7 @@ namespace Graphs
 
         private void DegreeOFVertex_Click(object sender, EventArgs e)
         {
+            listBoxMatrix.Items.Clear();
             int n = V.Count;
             int num = 0;
             createAdjAndOut();
@@ -428,7 +429,7 @@ namespace Graphs
                     cycle.Reverse();
                     string s = cycle[0].ToString();
                     for (int i = 1; i < cycle.Count; i++)
-                        s += "-" + cycle[i].ToString();
+                        s += "-" + ((char)('A' + cycle[i])).ToString();
                     bool flag = false; //есть ли палиндром для этого цикла графа в листбоксе?
                     for (int i = 0; i < catalogCycles.Count; i++)
                         if (catalogCycles.Count.ToString() == s)
@@ -439,9 +440,9 @@ namespace Graphs
                     if (!flag)
                     {
                         cycle.Reverse();
-                        s = cycle[0].ToString();
+                        s = ('A').ToString();
                         for (int i = 1; i < cycle.Count; i++)
-                            s += "-" + cycle[i].ToString();
+                            s += "-" + ((char)('A'+cycle[i])).ToString();
                         catalogCycles.Add(s);
                     }
                     return;
@@ -471,20 +472,19 @@ namespace Graphs
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            listBoxMatrix.Items.Clear();
             chainsSearch();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            listBoxMatrix.Items.Clear();
             catalogCycles = new List<string>();
             cyclesSearch();
-            string res = "";
             foreach (var item in catalogCycles)
             {
-                res += item + "\n";
+                listBoxMatrix.Items.Add(item);
             }
-            MessageBox.Show(res);
         }
         private void chainsSearch()
         {

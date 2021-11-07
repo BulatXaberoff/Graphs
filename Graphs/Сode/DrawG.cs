@@ -98,7 +98,7 @@ namespace Graphs
                     point = new PointF(V[E[i].v1].x - (int)(2.75 * R), V[E[i].v1].y - (int)(2.75 * R));
                     string res = ((char)('a' + i)).ToString();
                     res += $"({E[i].weight})";
-                    gr.DrawString(res, fo, br, point);
+                    gr.DrawString(res, new Font("Arial", 10), br, point);
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace Graphs
                     point = new PointF((V[E[i].v1].x + V[E[i].v2].x) / 2, (V[E[i].v1].y + V[E[i].v2].y) / 2);
                     string res = ((char)('a' + i)).ToString();
                     res += $"({E[i].weight})";
-                    gr.DrawString(res, fo, br, point);
+                    gr.DrawString(res, new Font("Arial", 10), br, point);
                 }
             }
             //рисуем вершины
