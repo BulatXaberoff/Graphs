@@ -125,8 +125,8 @@ namespace Graphs
                     degree += AMatrix[count, j];
                     num += AMatrix[count, j];
                 }
-                string deg = $"deg({count + 1})= {degree}";
-                res += $"deg({count + 1})={degree}\n + \n";
+                string deg = $"deg({((char)('A'+count )).ToString()})= {degree}";
+                res += $"deg({((char)('A' + count)).ToString()})={degree}\n + \n";
                 G.drawPow(x, y, deg);
                 picture.Image = G.GetBitmap();
                 count++;
@@ -176,7 +176,7 @@ namespace Graphs
                             int degree = 0;
                             for (int j = 0; j < V.Count; j++)
                                 degree += AMatrix[selected1, j];
-                            string deg = $"deg({i})= {degree}";
+                            string deg = $"deg({((char)('A'+i-1)).ToString()})= {degree}";
                             G.drawPow(e.X, e.Y, deg);
                             picture.Image = G.GetBitmap();
                             break;
@@ -337,8 +337,8 @@ namespace Graphs
         }
         private void createAdjAndOut()
         {
-            if (label1.Text != "")
-                label1.Text = "";
+            //if (label1.Text != "")
+            //    label1.Text = "";
             AMatrix = new int[V.Count, V.Count];
             G.fillAdjacencyMatrix(V.Count, E, AMatrix);
             //listBoxMatrix.Items.Clear();
@@ -363,17 +363,17 @@ namespace Graphs
         {
             if (E.Count > 0)
             {
-                if (label2.Text != "")
-                    label2.Text = "";
+                //if (label2.Text != "")
+                //    label2.Text = "";
                 IMatrix = new int[V.Count, E.Count];
                 G.fillIncidenceMatrix(V.Count, E, IMatrix);
                 //listBoxMatrix.Items.Clear();
                 string sOut = "    ";
                 for (int i = 0; i < E.Count; i++)
-                    sOut += (char)('a' + i) + " ";
+                    sOut += (char)('A' + i) + " ";
                 sOut += "\n";
                 label2.Text = sOut;
-                //listBoxMatrix.Items.Add(sOut);
+                listBoxMatrix.Items.Add(sOut);
                 for (int i = 0; i < V.Count; i++)
                 {
                     sOut = (i + 1) + " | ";
@@ -381,12 +381,12 @@ namespace Graphs
                         sOut += IMatrix[i, j] + " ";
                     sOut += "\n";
                     label2.Text += sOut;
-                    //listBoxMatrix.Items.Add(sOut);
+                    listBoxMatrix.Items.Add(sOut);
                 }
             }
             else
             {
-                //listBoxMatrix.Items.Clear();
+                listBoxMatrix.Items.Clear();
                 label2.Text = "";
             }
         }
@@ -397,7 +397,7 @@ namespace Graphs
                 color[u] = 2;
             else
             {
-                //listBoxMatrix.Items.Add(s);
+                listBoxMatrix.Items.Add(s);
                 label2.Text += s+"\n";
                 return;
             }
@@ -405,12 +405,12 @@ namespace Graphs
             {
                 if (color[E[w].v2] == 1 && E[w].v1 == u)
                 {
-                    DFSchain(E[w].v2, endV, E, color, s + "-" + (E[w].v2 + 1).ToString());
+                    DFSchain(E[w].v2, endV, E, color, s + "-" + ((char)('A'+E[w].v2)).ToString());
                     color[E[w].v2] = 1;
                 }
                 else if (color[E[w].v1] == 1 && E[w].v2 == u)
                 {
-                    DFSchain(E[w].v1, endV, E, color, s + "-" + (E[w].v1 + 1).ToString());
+                    DFSchain(E[w].v1, endV, E, color, s + "-" + ((char)('A'+E[w].v1)).ToString());
                     color[E[w].v1] = 1;
                 }
             }
@@ -494,7 +494,7 @@ namespace Graphs
                 {
                     for (int k = 0; k < V.Count; k++)
                         color[k] = 1;
-                    DFSchain(i, j, E, color, (i + 1).ToString());
+                    DFSchain(i, j, E, color, ((char)('A'+ i)).ToString());
                     //поскольку в C# нумерация элементов начинается с нуля, то
                     //для удобочитаемости результатов в строку передаем i + 1
                 }
