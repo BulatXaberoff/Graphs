@@ -95,15 +95,7 @@ namespace Graphs
                 label1.Text = "";
                 label2.Text = "";
             }
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
+        }   
 
         private void picture_MouseClick(object sender, MouseEventArgs e)
         {
@@ -147,13 +139,13 @@ namespace Graphs
                         {
                             if (AMatrix[E[j].v1, E[j].v2] == 1)
                             {
-                                if (new Circle(new Point(e.X, e.Y), 10) *
-                            new Circle(new Point((V[E[j].v1].x + V[E[j].v2].x) / 2, (V[E[j].v1].y + V[E[j].v2].y) / 2), 10)
+                                if (new Circle(new GPoint(e.X, e.Y), 10) *
+                            new Circle(new GPoint((V[E[j].v1].x + V[E[j].v2].x) / 2, (V[E[j].v1].y + V[E[j].v2].y) / 2), 10)
                             != InterSect.NoPoint)
                                 {
                                     Form2 newForm = new Form2();
                                     newForm.ShowDialog();
-                                    E[j].weight = HelpClass.weight;
+                                    E[j].weight = HelpClass.Weight;
                                     G.EditEdge(V[E[j].v1], V[E[j].v2], E[j], j);
                                     G.clearSheet();
                                     G.drawALLGraph(V, E);
@@ -163,12 +155,8 @@ namespace Graphs
                             }
                         }
                     }
-
                 }
-
-
             }
-
             //нажата кнопка "рисовать вершину"
             if (drawVertexButton.Enabled == false)
             {
@@ -201,7 +189,7 @@ namespace Graphs
                                 selected2 = i;
                                 Form2 newForm = new Form2();
                                 newForm.ShowDialog();
-                                E.Add(new Edge(selected1, selected2, HelpClass.weight));
+                                E.Add(new Edge(selected1, selected2, HelpClass.Weight));
                                 G.drawEdge(V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
                                 selected1 = -1;
                                 selected2 = -1;
@@ -290,6 +278,7 @@ namespace Graphs
                 }
             }
         }
+        //Матрица смежности
         private void createAdjAndOut()
         {
             //if (label1.Text != "")
@@ -314,6 +303,7 @@ namespace Graphs
                 //listBoxMatrix.Items.Add(sOut);
             }
         }
+        //Матрица инциндентности
         private void createIncAndOut()
         {
             if (E.Count > 0)
@@ -424,22 +414,22 @@ namespace Graphs
             
             
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            listBoxMatrix.Items.Clear();
-            chainsSearch();
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    listBoxMatrix.Items.Clear();
+        //    chainsSearch();
+        //}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            listBoxMatrix.Items.Clear();
-            catalogCycles = new List<string>();
-            cyclesSearch();
-            foreach (var item in catalogCycles)
-            {
-                listBoxMatrix.Items.Add(item);
-            }
-        }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    listBoxMatrix.Items.Clear();
+        //    catalogCycles = new List<string>();
+        //    cyclesSearch();
+        //    foreach (var item in catalogCycles)
+        //    {
+        //        listBoxMatrix.Items.Add(item);
+        //    }
+        //}
         private void chainsSearch()
         {
             int[] color = new int[V.Count];
@@ -580,12 +570,67 @@ namespace Graphs
             }
         }
 
-        
+        private void FillAMatrix(int [,]arr,int Vcount)
+        {
+            AMatrix = new int[Vcount, Vcount]; 
+            for (int i = 0; i < Vcount; i++)
+            {
+                for (int j = 0; j < Vcount; j++)
+                {
+                    AMatrix[i, j] = arr[i, j];
+                }
+            }
+        }
 
         private void Create_Graphs_Button_Click(object sender, EventArgs e)
         {
             Form3 newForm = new Form3();
             newForm.ShowDialog();
+            int Vcount = HelpClass.Size;
+            FillAMatrix(HelpClass.AdjCopy(),Vcount);
+            Generate();
+            int count = 0;
+            
+            for (int i = 0; i < Vcount; i++)
+            {
+                for (int j = 0; j < Vcount; j++)
+                {
+                    if (AMatrix[i,j]==1&&count<=4)
+                    {
+                        E.Add(new Edge(i, j, HelpClass.Weight));
+                        G.drawEdge(V[i], V[j], E[E.Count - 1], E.Count - 1);
+                        picture.Image = G.GetBitmap();
+                        count++;
+                    }
+                }
+            }
+        }
+        private void Generate()
+        {
+            Random rand = new Random();
+            for (int i = 0; i < HelpClass.Size; i++)
+            {
+                int x = rand.Next(0, 400);
+                int y = rand.Next(0, 300);
+
+                V.Add(new Vertex(x, y));
+                G.drawVertex(x, y, V.Count.ToString());
+                picture.Image = G.GetBitmap();
+            }
+        }
+
+       
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            V.Clear();
+            E.Clear();
+            G.clearSheet();
+            picture.Image = G.GetBitmap();
+            listBoxMatrix.Items.Clear();
+            label1.Text = "";
+            label2.Text = "";
+            Generate();
         }
     }
 }

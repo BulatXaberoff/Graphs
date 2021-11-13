@@ -10,12 +10,12 @@ namespace Graphs.Сode
     {
         NoPoint, OnePoint, TwoPoint, Same
     }
-    class Point
+    class GPoint
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public Point() { }
-        public Point(double x, double y)
+        public GPoint() { }
+        public GPoint(double x, double y)
         {
             X = x;
             Y = y;
@@ -24,53 +24,53 @@ namespace Graphs.Сode
         {
             Console.WriteLine($"X:{X}\tY:{Y}");
         }
-        static public Point operator -(Point p1, Point p2)
+        static public GPoint operator -(GPoint p1, GPoint p2)
         {
-            return new Point(p1.X - p2.X, p1.Y - p2.Y);
+            return new GPoint(p1.X - p2.X, p1.Y - p2.Y);
         }
-        static public Point operator +(Point p1, Point p2)
+        static public GPoint operator +(GPoint p1, GPoint p2)
         {
-            return new Point(p1.X + p2.X, p1.Y + p2.Y);
+            return new GPoint(p1.X + p2.X, p1.Y + p2.Y);
         }
-        static public Point operator +(Point p1, double value)
+        static public GPoint operator +(GPoint p1, double value)
         {
-            return new Point(p1.X + value, p1.Y + value);
+            return new GPoint(p1.X + value, p1.Y + value);
         }
-        static public Point operator +(double value, Point p1)
+        static public GPoint operator +(double value, GPoint p1)
         {
-            return new Point(p1.X + value, p1.Y + value);
+            return new GPoint(p1.X + value, p1.Y + value);
         }
-        static public Point operator *(double value, Point point)
+        static public GPoint operator *(double value, GPoint point)
         {
-            return new Point(value * point.X, value * point.Y);
+            return new GPoint(value * point.X, value * point.Y);
         }
-        static public Point operator *(Point point, double value)
+        static public GPoint operator *(GPoint point, double value)
         {
-            return new Point(value * point.X, value * point.Y);
+            return new GPoint(value * point.X, value * point.Y);
         }
-        static public Point operator /(Point point, double value)
+        static public GPoint operator /(GPoint point, double value)
         {
-            return new Point(point.X / value, point.Y / value);
+            return new GPoint(point.X / value, point.Y / value);
         }
-        static public bool operator ==(Point ob1, Point ob2)
+        static public bool operator ==(GPoint ob1, GPoint ob2)
         {
 
             return ob1.X == ob2.X && ob1.Y == ob2.Y;
         }
-        static public bool operator !=(Point ob1, Point ob2)
+        static public bool operator !=(GPoint ob1, GPoint ob2)
         {
 
             return ob1.X == ob2.X && ob1.Y == ob2.Y ? false : true;
         }
-        public double Distance(Point point)
+        public double Distance(GPoint point)
         {
             return Math.Sqrt(Math.Pow(X - point.X, 2) + Math.Pow(Y - point.Y, 2));
         }
-        public static bool operator ==(object o, Point t)
+        public static bool operator ==(object o, GPoint t)
         {
             return true;
         }
-        public static bool operator !=(object o, Point t)
+        public static bool operator !=(object o, GPoint t)
         {
             return true;
         }
@@ -83,24 +83,24 @@ namespace Graphs.Сode
             return 0;
         }
     }
-    class Circle : Point
+    class Circle : GPoint
     {
         public double Radius { get; private set; }
         public double Area
         {
             get; private set;
         }
-        Point Center;
+        GPoint Center;
         const double PI = Math.PI;
         public Circle() { }
-        public Circle(Point center, double radius)
+        public Circle(GPoint center, double radius)
         {
             Center = center;
             Radius = radius;
             Area = Math.Pow(Radius, 2) * PI;
         }
 
-        public Circle(double x, double y, double r) : this(new Point(), r)
+        public Circle(double x, double y, double r) : this(new GPoint(), r)
         {
         }
 
@@ -129,7 +129,7 @@ namespace Graphs.Сode
             }
             else if (Distance == ob1.Radius + ob2.Radius || Distance == Math.Abs(ob1.Radius - ob2.Radius))
             {
-                Point point = new Point((ob1.Center.X + ob2.Center.X) / 2, (ob1.Center.Y + ob2.Center.Y) / 2);
+                GPoint point = new GPoint((ob1.Center.X + ob2.Center.X) / 2, (ob1.Center.Y + ob2.Center.Y) / 2);
                 interSect = InterSect.OnePoint;
                 Console.WriteLine("Точка пересечения:");
                 point.Show();
@@ -157,16 +157,16 @@ namespace Graphs.Сode
         }
         static public void Foo(Circle c1, Circle c2)
         {
-            Point p0, p3, p4;
-            Point p1 = c1.Center, p2 = c2.Center;
+            GPoint p0, p3, p4;
+            GPoint p1 = c1.Center, p2 = c2.Center;
             double a, b;
             double distant = c1.Center.Distance(c2.Center);
             b = ((Math.Pow(c2.Radius, 2) - Math.Pow(c1.Radius, 2) + Math.Pow(distant, 2)) / (2 * distant));
             a = distant - b;
             double h = Math.Sqrt(Math.Abs(Math.Pow(c1.Radius, 2) - Math.Pow(a, 2)));
             p0 = c1.Center + a / distant * (c2.Center - c1.Center);
-            p3 = new Point(p0.X + (p2.Y - p1.Y) / distant * h, p0.Y - (p2.X - p1.X) / distant * h);
-            p4 = new Point(p0.X - (p2.Y - p1.Y) / distant * h, p0.Y + (p2.X - p1.X) / distant * h);
+            p3 = new GPoint(p0.X + (p2.Y - p1.Y) / distant * h, p0.Y - (p2.X - p1.X) / distant * h);
+            p4 = new GPoint(p0.X - (p2.Y - p1.Y) / distant * h, p0.Y + (p2.X - p1.X) / distant * h);
             Console.WriteLine($"Две точки пересечения:\nПервая точка:{p3.X}\t{p3.Y}\nВторая точка:{p4.X}\t{p4.Y}");
         }
         ~Circle() { Console.WriteLine("Уничтожение объекта"); }

@@ -16,7 +16,7 @@ namespace Graphs
             {
                 if (textBox1.Text != "")
                 {
-                    HelpClass.weight = int.Parse(textBox1.Text);
+                    HelpClass.Weight = int.Parse(textBox1.Text);
                 }
             }
             catch (Exception)

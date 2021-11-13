@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphs.Сode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace Graphs
     public partial class Form3 : Form
     {
         public int CountGraph { get; set; }
-        public double[,] MatrixA;
+        public int[,] MatrixA;
         public Form3()
         {
             InitializeComponent();
@@ -52,7 +53,7 @@ namespace Graphs
             tableLayoutPanel1.ColumnStyles.Clear();
             tableLayoutPanel1.RowStyles.Clear();
 
-            MatrixA = new double[CountGraph, CountGraph];
+            MatrixA = new int[CountGraph, CountGraph];
             ToAddValue();
         }
         private void ToAddValue()
@@ -71,7 +72,7 @@ namespace Graphs
                     location[j, i] = list[i];
                 }
             }
-            int z = 0;
+
 
             for (int j = 0; j < CountGraph; j++)
             {
@@ -122,12 +123,14 @@ namespace Graphs
             list1 = tableLayoutPanel1.Controls.OfType<TextBox>().ToList();
 
             int z = 0;
-
+            HelpClass.Size = CountGraph;
+            HelpClass.AdjMatrix = new int[CountGraph, CountGraph];
             for (int i = 0; i < CountGraph; i++)
             {
                 for (int j = 0; j < CountGraph; j++)
                 {
-                    MatrixA[j, i] = double.Parse(list1[z].Text);
+                    MatrixA[j, i] = int.Parse(list1[z].Text);
+                    HelpClass.AdjMatrix[j, i] = int.Parse(list1[z].Text);
                     z++;
                 }
             }
@@ -143,6 +146,7 @@ namespace Graphs
         {
             FillMatrix();
             ShowMatrix();
+            Close();
         }
 
         private void Form3_Load(object sender, EventArgs e)

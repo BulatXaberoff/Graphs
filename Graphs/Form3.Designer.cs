@@ -114,7 +114,7 @@ namespace Graphs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(805, 605);
+            this.ClientSize = new System.Drawing.Size(497, 541);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.Create_Box);

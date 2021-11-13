@@ -41,6 +41,8 @@ namespace Graphs
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Create_Graphs_Button = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -168,11 +170,32 @@ namespace Graphs
             this.Create_Graphs_Button.UseVisualStyleBackColor = true;
             this.Create_Graphs_Button.Click += new System.EventHandler(this.Create_Graphs_Button_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(142, 550);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "label3";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(883, 511);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(155, 53);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Перестроить точки";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 672);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.Create_Graphs_Button);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button3);
@@ -207,6 +230,8 @@ namespace Graphs
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button Create_Graphs_Button;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
