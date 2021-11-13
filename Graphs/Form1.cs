@@ -580,9 +580,12 @@ namespace Graphs
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+        
 
+        private void Create_Graphs_Button_Click(object sender, EventArgs e)
+        {
+            Form3 newForm = new Form3();
+            newForm.ShowDialog();
         }
     }
 }
