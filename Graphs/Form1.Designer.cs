@@ -43,6 +43,7 @@ namespace Graphs
             this.Create_Graphs_Button = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.Path_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,11 +190,22 @@ namespace Graphs
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // Path_Button
+            // 
+            this.Path_Button.Image = global::Graphs.Properties.Resources.Graph;
+            this.Path_Button.Location = new System.Drawing.Point(965, 72);
+            this.Path_Button.Name = "Path_Button";
+            this.Path_Button.Size = new System.Drawing.Size(68, 75);
+            this.Path_Button.TabIndex = 18;
+            this.Path_Button.UseVisualStyleBackColor = true;
+            this.Path_Button.Click += new System.EventHandler(this.Path_Button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 672);
+            this.Controls.Add(this.Path_Button);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Create_Graphs_Button);
@@ -232,6 +244,7 @@ namespace Graphs
         private System.Windows.Forms.Button Create_Graphs_Button;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Path_Button;
     }
 }
 

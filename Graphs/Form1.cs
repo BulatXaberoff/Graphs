@@ -16,6 +16,8 @@ namespace Graphs
 
         int selected1; //выбранные вершины, для соединения линиями
         int selected2;
+        int startV;
+        int finishV;
         List<string> catalogCycles;
         public Form1()
         {
@@ -28,9 +30,22 @@ namespace Graphs
             label2.Text = "Таблица инцендентности\n";
         }
 
-      
+        private void Path_Button_Click(object sender, EventArgs e)
+        {
+            Path_Button.Enabled = false;
+            selectButton.Enabled = true;
+            drawVertexButton.Enabled = true;
+            drawEdgeButton.Enabled = true;
+            deleteButton.Enabled = true;
+            G.clearSheet();
+            G.drawALLGraph(V, E);
+            picture.Image = G.GetBitmap();
+            selected1 = -1;
+            selected2 = -1;
+        }
         private void selectButton_Click(object sender, EventArgs e)
         {
+            Path_Button.Enabled = true;
             selectButton.Enabled = false;
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
@@ -43,6 +58,7 @@ namespace Graphs
 
         private void drawVertexButton_Click(object sender, EventArgs e)
         {
+            Path_Button.Enabled = true;
             drawVertexButton.Enabled = false;
             selectButton.Enabled = true;
             drawEdgeButton.Enabled = true;
@@ -54,6 +70,7 @@ namespace Graphs
 
         private void drawEdgeButton_Click(object sender, EventArgs e)
         {
+            Path_Button.Enabled = true;
             drawEdgeButton.Enabled = false;
             selectButton.Enabled = true;
             drawVertexButton.Enabled = true;
@@ -67,6 +84,7 @@ namespace Graphs
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            Path_Button.Enabled = true;
             deleteButton.Enabled = false;
             selectButton.Enabled = true;
             drawVertexButton.Enabled = true;
@@ -82,6 +100,7 @@ namespace Graphs
             drawVertexButton.Enabled = true;
             drawEdgeButton.Enabled = true;
             deleteButton.Enabled = true;
+            Path_Button.Enabled = true;
             const string message = "Вы действительно хотите полностью удалить граф?";
             const string caption = "Удаление";
             var MBSave = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -90,6 +109,8 @@ namespace Graphs
                 V.Clear();
                 E.Clear();
                 G.clearSheet();
+                HelpClass.Size = 0;
+                HelpClass.AdjMatrix = new int[HelpClass.Size, HelpClass.Size];
                 picture.Image = G.GetBitmap();
                 listBoxMatrix.Items.Clear();
                 label1.Text = "";
@@ -99,8 +120,112 @@ namespace Graphs
 
         private void picture_MouseClick(object sender, MouseEventArgs e)
         {
-            //нажата кнопка "выбрать вершину", ищем степень вершины
             createAdjAndOut();
+            if(Path_Button.Enabled==false)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    for (int i = 0; i < V.Count; i++)
+                    {
+                        if (Math.Pow((V[i].x - e.X), 2) + Math.Pow((V[i].y - e.Y), 2) <= G.R * G.R)
+                        {
+                            if (selected1 == -1)
+                            {
+                                G.drawSelectedVertex(V[i].x, V[i].y);
+                                selected1 = i;
+                                startV = i;
+                                picture.Image = G.GetBitmap();
+                                break;
+                            }
+
+                            if (selected2 == -1)
+                            {
+
+                                G.drawSelectedVertex(V[i].x, V[i].y);
+                                selected1 = -1;
+                                selected2 = -1;
+                                finishV = i;
+                                picture.Image = G.GetBitmap();
+                                break;
+                            }
+                        }
+                    }
+                    //foreach (var vertex in V)
+                    //{
+                    //    if (vertex.)
+                    //    {
+
+                    //    }
+                    //}
+                }
+                if (e.Button == MouseButtons.Right)
+                {
+                    if ((selected1 != -1) &&
+                        (Math.Pow((V[selected1].x - e.X), 2) + Math.Pow((V[selected1].y - e.Y), 2) <= G.R * G.R))
+                    {
+                        G.drawVertex(V[selected1].x, V[selected1].y, (selected1 + 1).ToString());
+                        selected1 = -1;
+                        picture.Image = G.GetBitmap();
+                    }
+                }
+            }
+            if (selectButton.Enabled == false)
+            {
+                for (int i = 1; i <= V.Count; i++)
+                {
+                    if (Math.Pow((V[i - 1].x - e.X), 2) + Math.Pow((V[i - 1].y - e.Y), 2) <= G.R * G.R)
+                    {
+                        if (selected1 != -1)
+                        {
+                            selected1 = -1;
+                            G.clearSheet();
+                            G.drawALLGraph(V, E);
+                            picture.Image = G.GetBitmap();
+                        }
+                        if (selected1 == -1)
+                        {
+                            G.drawSelectedVertex(V[i - 1].x, V[i - 1].y);
+                            selected1 = i - 1;
+                            picture.Image = G.GetBitmap();
+                            createAdjAndOut();
+                            int degree = 0;
+                            for (int j = 0; j < V.Count; j++)
+                                degree += AMatrix[selected1, j];
+                            string deg = $"deg({((char)('A' + i - 1)).ToString()})= {degree}";
+                            G.drawPow(e.X, e.Y, deg);
+                            picture.Image = G.GetBitmap();
+                            break;
+                        }
+                    }
+                    //Point point1 = new Point(e.X, e.Y);
+                    //Point point2 = new Point((V[i].x + V[i + 1].x) / 2, (V[i].y + V[i + 1].y) / 2);
+                    //InterSect interSect = InterSect.NoPoint;
+                    //InterSect res = new Circle(point1, 10) * new Circle(point2, 10);
+                    if (E.Count == i)
+                    {
+                        for (int j = 0; j < E.Count; j++)
+                        {
+                            if (AMatrix[E[j].v1, E[j].v2] == 1)
+                            {
+                                if (new Circle(new GPoint(e.X, e.Y), 10) *
+                            new Circle(new GPoint((V[E[j].v1].x + V[E[j].v2].x) / 2, (V[E[j].v1].y + V[E[j].v2].y) / 2), 10)
+                            != InterSect.NoPoint)
+                                {
+                                    Form2 newForm = new Form2();
+                                    newForm.ShowDialog();
+                                    E[j].weight = HelpClass.Weight;
+                                    G.EditEdge(V[E[j].v1], V[E[j].v2], E[j], j);
+                                    G.clearSheet();
+                                    G.drawALLGraph(V, E);
+                                    picture.Image = G.GetBitmap();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //нажата кнопка "выбрать вершину", ищем степень вершины
             if (selectButton.Enabled == false)
             {
                 for (int i = 1; i <= V.Count; i++)
@@ -168,7 +293,6 @@ namespace Graphs
             //нажата кнопка "рисовать ребро"
             if (drawEdgeButton.Enabled == false)
             {
-
                 if (e.Button == MouseButtons.Left)
                 {
                     for (int i = 0; i < V.Count; i++)
@@ -361,6 +485,60 @@ namespace Graphs
                 }
             }
         }
+        private void chainsSearch()
+        {
+            int[] color = new int[V.Count];
+            for (int i = 0; i < V.Count - 1; i++)
+                for (int j = i + 1; j < V.Count; j++)
+                {
+                    for (int k = 0; k < V.Count; k++)
+                        color[k] = 1;
+                    DFSchain(i, j, E, color, ((char)('A' + i)).ToString());
+                    //поскольку в C# нумерация элементов начинается с нуля, то
+                    //для удобочитаемости результатов в строку передаем i + 1
+                }
+        }
+        private void DFSchainOne(int u, int endV, List<Edge> E, int[] color, string s)
+        {
+            //вершину не следует перекрашивать, если u == endV (возможно в нее есть несколько путей)
+            int count = 0;
+            if (u != endV)
+                color[u] = 2;
+            else
+            {
+                s += " " + count;
+                listBoxMatrix.Items.Add(s);
+                label2.Text += s + "\n";
+                return;
+            }
+            for (int w = 0; w < E.Count; w++)
+            {
+                if (color[E[w].v2] == 1 && E[w].v1 == u)
+                {
+                    DFSchain(E[w].v2, endV, E, color, s + "-" + ((char)('A' + E[w].v2)).ToString());
+                    color[E[w].v2] = 1;
+                    count++;
+                }
+                else if (color[E[w].v1] == 1 && E[w].v2 == u)
+                {
+                    DFSchain(E[w].v1, endV, E, color, s + "-" + ((char)('A' + E[w].v1)).ToString());
+                    color[E[w].v1] = 1;
+                    count++;
+                }
+            }
+        }
+        private void chainsSearchOne(int start,int end)
+        {
+            int[] color = new int[V.Count];
+                for (int j = start + 1; j < V.Count; j++)
+                {
+                    for (int k = 0; k < V.Count; k++)
+                        color[k] = 1;
+                    DFSchainOne(start, j, E, color, ((char)('A' + start)).ToString());
+                    //поскольку в C# нумерация элементов начинается с нуля, то
+                    //для удобочитаемости результатов в строку передаем i + 1
+                }
+        }
         private void DFScycle(int u, int endV, List<Edge> E, int[] color, int unavailableEdge, List<int> cycle)
         {
             //если u == endV, то эту вершину перекрашивать не нужно, иначе мы в нее не вернемся, а вернуться необходимо
@@ -431,19 +609,7 @@ namespace Graphs
         //        listBoxMatrix.Items.Add(item);
         //    }
         //}
-        private void chainsSearch()
-        {
-            int[] color = new int[V.Count];
-            for (int i = 0; i < V.Count - 1; i++)
-                for (int j = i + 1; j < V.Count; j++)
-                {
-                    for (int k = 0; k < V.Count; k++)
-                        color[k] = 1;
-                    DFSchain(i, j, E, color, ((char)('A'+ i)).ToString());
-                    //поскольку в C# нумерация элементов начинается с нуля, то
-                    //для удобочитаемости результатов в строку передаем i + 1
-                }
-        }
+       
         private void cyclesSearch()
         {
             int[] color = new int[V.Count];
@@ -562,8 +728,41 @@ namespace Graphs
                 case 4:
                     {
                         listBoxMatrix.Items.Clear();
-                        MessageBox.Show("Выберите вершину");
-                        
+                        int size = 2;
+                        int i = 0;
+                        chainsSearchOne(startV,finishV);
+                        char startchar = (char)('A' + startV);
+                        char endchar = (char)('A' + finishV);
+                        List<string> paths = new List<string>();
+                        foreach (var item in listBoxMatrix.Items)
+                        {
+                            string[] words = item.ToString().Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                            string word = "";
+                            for (int j = 0; j < words.Length; j++)
+                            {
+                                word += words[j];
+                            }
+                            int index = word.IndexOf(endchar);
+                            if (index==-1)
+                            {
+                                continue;
+                            }
+                            if (word[index] == endchar)
+                            {
+                                paths.Add(word);
+                                continue;
+                            }
+                        }
+                        string m = paths[0];
+                        listBoxMatrix.Items.Clear();
+                        for (int j = 0; j < paths.Count; j++)
+                        {
+                            if (paths[j].Length<m.Length)
+                            {
+                                m = paths[j];
+                            }
+                        }
+                        listBoxMatrix.Items.Add(m);
                         break;
                     }
                 case 5:
@@ -634,11 +833,7 @@ namespace Graphs
             }
         }
 
-        private void SelectButton_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         private int F(int count)
         {
             int temp = 1;
@@ -736,9 +931,12 @@ namespace Graphs
             listBoxMatrix.Items.Clear();
             label1.Text = "";
             label2.Text = "";
+            
             Generate();
             ToBuildPath(V.Count);
 
         }
+
+       
     }
 }
