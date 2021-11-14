@@ -550,7 +550,6 @@ namespace Graphs
                 case 3:
                     {
                         listBoxMatrix.Items.Clear();
-                        chainsSearch();
                         int subgraphcount = 0;
                         for (int i = 1; i <= E.Count; i++)
                         {
@@ -560,7 +559,13 @@ namespace Graphs
                         listBoxMatrix.Items.AddRange(ToConvertStringArr(result));
                         break;
                     }
-                    
+                case 4:
+                    {
+                        listBoxMatrix.Items.Clear();
+                        MessageBox.Show("Выберите вершину");
+                        
+                        break;
+                    }
                 case 5:
                     {
                         int n = V.Count;
@@ -592,30 +597,46 @@ namespace Graphs
                         listBoxMatrix.Items.Add(result);
                         break;
                     }
+                case 6:
+                    break;
                     
                 case 8:
-                    listBoxMatrix.Items.Clear();
-                    catalogCycles = new List<string>();
-                    cyclesSearch();
-                    foreach (var item in catalogCycles)
                     {
-                        listBoxMatrix.Items.Add(item);
+                        listBoxMatrix.Items.Clear();
+                        catalogCycles = new List<string>();
+                        int z = 0;
+                        cyclesSearch();
+                        foreach (var item in catalogCycles)
+                        {
+                            z++;
+                            listBoxMatrix.Items.Add(item);
+                        }
+                        listBoxMatrix.Items.Add("Количество циклов: "+z);
+                        break;
                     }
-                    break;
+                    
                 case 9:
-                    int r = V.Count;
-                    string reуs= "";
-                    if ((r * (r - 1)) / 2 == E.Count)
                     {
-                        reуs = "Граф является полным";
+                        int r = V.Count;
+                        string reуs = "";
+                        if ((r * (r - 1)) / 2 == E.Count)
+                        {
+                            reуs = "Граф является полным";
+                        }
+                        else
+                            reуs = "Граф не является полным";
+                        listBoxMatrix.Items.Add(reуs);
+                        break;
                     }
-                    else
-                        reуs = "Граф не является полным";
-                    listBoxMatrix.Items.Add(reуs);
-                    break;
+                    
                 default:
                     break;
             }
+        }
+
+        private void SelectButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private int F(int count)
