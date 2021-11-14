@@ -161,6 +161,7 @@ namespace Graphs
             if (drawVertexButton.Enabled == false)
             {
                 V.Add(new Vertex(e.X, e.Y));
+                HelpClass.Size++;
                 G.drawVertex(e.X, e.Y, V.Count.ToString());
                 picture.Image = G.GetBitmap();
             }
@@ -194,7 +195,6 @@ namespace Graphs
                                 selected1 = -1;
                                 selected2 = -1;
                                 picture.Image = G.GetBitmap();
-
                                 break;
                             }
                         }
@@ -277,6 +277,7 @@ namespace Graphs
                     picture.Image = G.GetBitmap();
                 }
             }
+            createAdjAndOut();
         }
         //Матрица смежности
         private void createAdjAndOut()
@@ -471,15 +472,16 @@ namespace Graphs
                     {
                         listBoxMatrix.Items.Clear();
                         int n = V.Count;
-                        int num = 0;
+                        int num = 0; 
+                        int count = 0;
+                        string res = "Sigma\n";
                         createAdjAndOut();
                         G.clearSheet();
                         G.drawALLGraph(V, E);
                         picture.Image = G.GetBitmap();
                         AMatrix = new int[V.Count, V.Count];
                         G.fillAdjacencyMatrix(V.Count, E, AMatrix);
-                        int count = 0;
-                        string res = "Sigma\n";
+                        
 
                         foreach (var item in V)
                         {
@@ -514,37 +516,83 @@ namespace Graphs
                     }
                     break;
                 case 2:
-                    int count1 = 0;
-                    int count2 = 0;
-                    AMatrix = new int[V.Count, V.Count];
-                    G.fillAdjacencyMatrix(V.Count, E, AMatrix);
-                    var sum = 0;
-                    for (int i = 0; i < V.Count; i++)
                     {
-                        int temp = 0;
-
-                        for (int j = 0; j < V.Count; j++)
+                        int count1 = 0;
+                        int count2 = 0;
+                        AMatrix = new int[V.Count, V.Count];
+                        G.fillAdjacencyMatrix(V.Count, E, AMatrix);
+                        var sum = 0;
+                        for (int i = 0; i < V.Count; i++)
                         {
-                            sum += AMatrix[i, j];
-                            temp += AMatrix[i, j];
+                            int temp = 0;
+
+                            for (int j = 0; j < V.Count; j++)
+                            {
+                                sum += AMatrix[i, j];
+                                temp += AMatrix[i, j];
+                            }
+                            if (sum % 2 != 0)
+                                count1++;
+                            else
+                                count2++;
+                            string deg = $"deg({((char)('A' + i)).ToString()})= {temp}";
+                            G.drawPow(V[i].x, V[i].y, deg);
+                            picture.Image = G.GetBitmap();
+
                         }
-                        if (sum % 2 != 0)
-                            count1++;
-                        else
-                            count2++;
-                        string deg = $"deg({((char)('A' + i)).ToString()})= {temp}";
-                        G.drawPow(V[i].x,V[i].y, deg);
-                        picture.Image = G.GetBitmap();
-                    }                
+                        string result1 = $"Количество четных степеней:{count2}\n";
+                        result1 += $"Количество нечетных степеней:{count1}\nИх сумма {count1 + count2}";
+                        listBoxMatrix.Items.AddRange(ToConvertStringArr(result1));
+                        break;
+
+                    }
                     
-                    string result = $"Количество четных степеней:{count2}\n";
-                    result += $"Количество нечетных степеней:{count1}\nИх сумма {count1+count2}";
-                    listBoxMatrix.Items.AddRange(ToConvertStringArr(result));
-                    break;
                 case 3:
-                    listBoxMatrix.Items.Clear();
-                    chainsSearch();
-                    break;
+                    {
+                        listBoxMatrix.Items.Clear();
+                        chainsSearch();
+                        int subgraphcount = 0;
+                        for (int i = 1; i <= E.Count; i++)
+                        {
+                            subgraphcount += F(E.Count) / (F(i) * F(E.Count - i));
+                        }
+                        string result = "Количество подграфов в графе равно:\n " + subgraphcount;
+                        listBoxMatrix.Items.AddRange(ToConvertStringArr(result));
+                        break;
+                    }
+                    
+                case 5:
+                    {
+                        int n = V.Count;
+                        int count = 0;
+                        bool check = false;
+                        listBoxMatrix.Items.Clear();
+                        foreach (var item in V)
+                        {
+                            int x = item.x;
+                            int y = item.y;
+                            int degree = 0;
+                            for (int j = 0; j < n; j++)
+                            {
+                                degree += AMatrix[count, j];
+
+                            }
+                            if (degree == 0)
+                            {
+                                check = true;
+                                break;
+                            }
+                            //string deg = $"deg({((char)('A' + count)).ToString()})= {degree}";
+                            //res += $"deg({((char)('A' + count)).ToString()})={degree}\n + \n";
+                            //G.drawPow(x, y, deg);
+                            //picture.Image = G.GetBitmap();
+                            count++;
+                        }                        
+                        string result = check? "Не является связным": "Является связным";
+                        listBoxMatrix.Items.Add(result);
+                        break;
+                    }
+                    
                 case 8:
                     listBoxMatrix.Items.Clear();
                     catalogCycles = new List<string>();
@@ -570,41 +618,78 @@ namespace Graphs
             }
         }
 
-        private void FillAMatrix(int [,]arr,int Vcount)
+        private int F(int count)
         {
-            AMatrix = new int[Vcount, Vcount]; 
+            int temp = 1;
+            for (int i = count; i > 0; i--)
+            {
+                temp *= i;
+            }
+            return temp;
+        }
+
+        private int [,] FillAMatrix(int [,]arr,int Vcount)
+        {
+           int[,] Matrix = new int[Vcount, Vcount];
+
             for (int i = 0; i < Vcount; i++)
             {
                 for (int j = 0; j < Vcount; j++)
                 {
-                    AMatrix[i, j] = arr[i, j];
+                    Matrix[i, j] = arr[i, j];
                 }
             }
+            return Matrix;
         }
 
         private void Create_Graphs_Button_Click(object sender, EventArgs e)
         {
+            V.Clear();
+            E.Clear();
+            G.clearSheet();
+            picture.Image = G.GetBitmap();
+            listBoxMatrix.Items.Clear();
+            label1.Text = "";
+            label2.Text = "";
             Form3 newForm = new Form3();
             newForm.ShowDialog();
             int Vcount = HelpClass.Size;
-            FillAMatrix(HelpClass.AdjCopy(),Vcount);
+            AMatrix = new int[Vcount, Vcount];
+            AMatrix= FillAMatrix(HelpClass.AdjCopy(), Vcount);
             Generate();
-            int count = 0;
-            
+            ToBuildPath(Vcount);
+        }
+
+        private void ToBuildPath(int Vcount)
+        {
+            int count = 1;
+            var z = Math.Floor((decimal)AMatrix.Length / 2);
+            int[,] CopyMatrix=new int[Vcount,Vcount];
+            CopyMatrix=FillAMatrix(AMatrix, Vcount);
             for (int i = 0; i < Vcount; i++)
             {
-                for (int j = 0; j < Vcount; j++)
+                if (AMatrix[i, i] > 0)
                 {
-                    if (AMatrix[i,j]==1&&count<=4)
+                    E.Add(new Edge(i, i, CopyMatrix[i,i]));
+                    G.drawEdge(V[i], V[i], E[E.Count - 1], E.Count - 1);
+                    picture.Image = G.GetBitmap();
+                    CopyMatrix[i, i] = 0;
+                }
+                for (int j = 1; j < Vcount; j++)
+                {
+                    if (AMatrix[i, j] > 0 && count <z&&CopyMatrix[i,j]>0&&CopyMatrix[j,i]>0)
                     {
-                        E.Add(new Edge(i, j, HelpClass.Weight));
+                        E.Add(new Edge(i, j, CopyMatrix[i, j]));
                         G.drawEdge(V[i], V[j], E[E.Count - 1], E.Count - 1);
                         picture.Image = G.GetBitmap();
+                        CopyMatrix[i, j] = 0;
+                        CopyMatrix[j, i] = 0;
                         count++;
                     }
                 }
             }
         }
+
         private void Generate()
         {
             Random rand = new Random();
@@ -631,6 +716,8 @@ namespace Graphs
             label1.Text = "";
             label2.Text = "";
             Generate();
+            ToBuildPath(V.Count);
+
         }
     }
 }
