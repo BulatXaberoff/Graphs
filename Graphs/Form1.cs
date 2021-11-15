@@ -691,7 +691,7 @@ namespace Graphs
                         for (int i = 0; i < V.Count; i++)
                         {
                             int temp = 0;
-
+                            sum=0;
                             for (int j = 0; j < V.Count; j++)
                             {
                                 sum += AMatrix[i, j];
