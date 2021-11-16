@@ -144,12 +144,13 @@ namespace Graphs
                                 G.drawSelectedVertex(V[i].x, V[i].y);
                                 selected1 = -1;
                                 selected2 = -1;
-                                finishV = i;
+                                finishV = i;                                
                                 picture.Image = G.GetBitmap();
                                 break;
                             }
+                            
                         }
-                    }
+                    }                   
                     //foreach (var vertex in V)
                     //{
                     //    if (vertex.)
@@ -253,6 +254,7 @@ namespace Graphs
                             picture.Image = G.GetBitmap();
                             break;
                         }
+                       
                     }
                     //Point point1 = new Point(e.X, e.Y);
                     //Point point2 = new Point((V[i].x + V[i + 1].x) / 2, (V[i].y + V[i + 1].y) / 2);

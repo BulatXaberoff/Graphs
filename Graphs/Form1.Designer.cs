@@ -32,18 +32,18 @@ namespace Graphs
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxMatrix = new System.Windows.Forms.ListBox();
-            this.deleteALLButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.drawEdgeButton = new System.Windows.Forms.Button();
-            this.drawVertexButton = new System.Windows.Forms.Button();
-            this.selectButton = new System.Windows.Forms.Button();
-            this.picture = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Create_Graphs_Button = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.Path_Button = new System.Windows.Forms.Button();
+            this.deleteALLButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.drawEdgeButton = new System.Windows.Forms.Button();
+            this.drawVertexButton = new System.Windows.Forms.Button();
+            this.selectButton = new System.Windows.Forms.Button();
+            this.picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,6 +72,73 @@ namespace Graphs
             this.listBoxMatrix.Name = "listBoxMatrix";
             this.listBoxMatrix.Size = new System.Drawing.Size(205, 498);
             this.listBoxMatrix.TabIndex = 12;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(883, 355);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(150, 44);
+            this.button3.TabIndex = 13;
+            this.button3.Text = "Показать данные";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Справедливость теоремы",
+            "Подсчет числа вершин",
+            "Количество подграфов в графе",
+            "Оптимальный путь",
+            "Проверка на связность",
+            "Проверка пути на цикличность",
+            "Проверка на простоту цикла",
+            "Вычисление количество циклов",
+            "Проверка полноты графа"});
+            this.comboBox1.Location = new System.Drawing.Point(872, 313);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(161, 21);
+            this.comboBox1.TabIndex = 14;
+            // 
+            // Create_Graphs_Button
+            // 
+            this.Create_Graphs_Button.Location = new System.Drawing.Point(700, 511);
+            this.Create_Graphs_Button.Name = "Create_Graphs_Button";
+            this.Create_Graphs_Button.Size = new System.Drawing.Size(155, 53);
+            this.Create_Graphs_Button.TabIndex = 15;
+            this.Create_Graphs_Button.Text = "Создать граф 2-м способом";
+            this.Create_Graphs_Button.UseVisualStyleBackColor = true;
+            this.Create_Graphs_Button.Click += new System.EventHandler(this.Create_Graphs_Button_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(142, 550);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "label3";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(883, 511);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(155, 53);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Перестроить точки";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Path_Button
+            // 
+            this.Path_Button.Image = global::Graphs.Properties.Resources.mark;
+            this.Path_Button.Location = new System.Drawing.Point(965, 108);
+            this.Path_Button.Name = "Path_Button";
+            this.Path_Button.Size = new System.Drawing.Size(68, 63);
+            this.Path_Button.TabIndex = 18;
+            this.Path_Button.UseVisualStyleBackColor = true;
+            this.Path_Button.Click += new System.EventHandler(this.Path_Button_Click);
             // 
             // deleteALLButton
             // 
@@ -132,73 +199,6 @@ namespace Graphs
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             this.picture.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picture_MouseClick);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(883, 311);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 44);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "Показать данные";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Справедливость теоремы",
-            "Подсчет числа вершин",
-            "Количество подграфов в графе",
-            "Оптимальный путь",
-            "Проверка на связность",
-            "Проверка пути на цикличность",
-            "Проверка на простоту цикла",
-            "Вычисление количество циклов",
-            "Проверка полноты графа"});
-            this.comboBox1.Location = new System.Drawing.Point(872, 269);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(161, 21);
-            this.comboBox1.TabIndex = 14;
-            // 
-            // Create_Graphs_Button
-            // 
-            this.Create_Graphs_Button.Location = new System.Drawing.Point(700, 511);
-            this.Create_Graphs_Button.Name = "Create_Graphs_Button";
-            this.Create_Graphs_Button.Size = new System.Drawing.Size(155, 53);
-            this.Create_Graphs_Button.TabIndex = 15;
-            this.Create_Graphs_Button.Text = "Создать граф 2-м способом";
-            this.Create_Graphs_Button.UseVisualStyleBackColor = true;
-            this.Create_Graphs_Button.Click += new System.EventHandler(this.Create_Graphs_Button_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(142, 550);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "label3";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(883, 511);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 53);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Перестроить точки";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Path_Button
-            // 
-            this.Path_Button.Image = global::Graphs.Properties.Resources.Graph;
-            this.Path_Button.Location = new System.Drawing.Point(965, 72);
-            this.Path_Button.Name = "Path_Button";
-            this.Path_Button.Size = new System.Drawing.Size(68, 75);
-            this.Path_Button.TabIndex = 18;
-            this.Path_Button.UseVisualStyleBackColor = true;
-            this.Path_Button.Click += new System.EventHandler(this.Path_Button_Click);
             // 
             // Form1
             // 
