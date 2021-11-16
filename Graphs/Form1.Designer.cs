@@ -85,12 +85,12 @@ namespace Graphs
             // 
             // comboBox1
             // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Справедливость теоремы",
             "Подсчет числа вершин",
             "Количество подграфов в графе",
-            "Оптимальный путь",
             "Проверка на связность",
             "Проверка пути на цикличность",
             "Проверка на простоту цикла",
@@ -98,7 +98,7 @@ namespace Graphs
             "Проверка полноты графа"});
             this.comboBox1.Location = new System.Drawing.Point(872, 313);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(161, 21);
+            this.comboBox1.Size = new System.Drawing.Size(232, 26);
             this.comboBox1.TabIndex = 14;
             // 
             // Create_Graphs_Button
@@ -133,7 +133,7 @@ namespace Graphs
             // Path_Button
             // 
             this.Path_Button.Image = global::Graphs.Properties.Resources.mark;
-            this.Path_Button.Location = new System.Drawing.Point(965, 108);
+            this.Path_Button.Location = new System.Drawing.Point(956, 85);
             this.Path_Button.Name = "Path_Button";
             this.Path_Button.Size = new System.Drawing.Size(68, 63);
             this.Path_Button.TabIndex = 18;
@@ -142,8 +142,8 @@ namespace Graphs
             // 
             // deleteALLButton
             // 
-            this.deleteALLButton.Image = global::Graphs.Properties.Resources.Landfill;
-            this.deleteALLButton.Location = new System.Drawing.Point(895, 218);
+            this.deleteALLButton.Image = global::Graphs.Properties.Resources.Мусорка;
+            this.deleteALLButton.Location = new System.Drawing.Point(895, 236);
             this.deleteALLButton.Name = "deleteALLButton";
             this.deleteALLButton.Size = new System.Drawing.Size(45, 45);
             this.deleteALLButton.TabIndex = 5;
@@ -153,7 +153,7 @@ namespace Graphs
             // deleteButton
             // 
             this.deleteButton.Image = global::Graphs.Properties.Resources.delete;
-            this.deleteButton.Location = new System.Drawing.Point(895, 168);
+            this.deleteButton.Location = new System.Drawing.Point(895, 185);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(45, 45);
             this.deleteButton.TabIndex = 4;
@@ -163,7 +163,7 @@ namespace Graphs
             // drawEdgeButton
             // 
             this.drawEdgeButton.Image = global::Graphs.Properties.Resources.Edge;
-            this.drawEdgeButton.Location = new System.Drawing.Point(895, 117);
+            this.drawEdgeButton.Location = new System.Drawing.Point(895, 134);
             this.drawEdgeButton.Name = "drawEdgeButton";
             this.drawEdgeButton.Size = new System.Drawing.Size(45, 45);
             this.drawEdgeButton.TabIndex = 3;
@@ -173,7 +173,7 @@ namespace Graphs
             // drawVertexButton
             // 
             this.drawVertexButton.Image = global::Graphs.Properties.Resources.Graph;
-            this.drawVertexButton.Location = new System.Drawing.Point(895, 72);
+            this.drawVertexButton.Location = new System.Drawing.Point(895, 83);
             this.drawVertexButton.Name = "drawVertexButton";
             this.drawVertexButton.Size = new System.Drawing.Size(45, 45);
             this.drawVertexButton.TabIndex = 2;
@@ -184,7 +184,7 @@ namespace Graphs
             // 
             this.selectButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.selectButton.Image = global::Graphs.Properties.Resources.mouse;
-            this.selectButton.Location = new System.Drawing.Point(895, 21);
+            this.selectButton.Location = new System.Drawing.Point(895, 32);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(45, 45);
             this.selectButton.TabIndex = 1;
@@ -193,7 +193,7 @@ namespace Graphs
             // 
             // picture
             // 
-            this.picture.Location = new System.Drawing.Point(225, 21);
+            this.picture.Location = new System.Drawing.Point(212, 12);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(641, 484);
             this.picture.TabIndex = 0;
@@ -204,7 +204,7 @@ namespace Graphs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1045, 672);
+            this.ClientSize = new System.Drawing.Size(1338, 672);
             this.Controls.Add(this.Path_Button);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);

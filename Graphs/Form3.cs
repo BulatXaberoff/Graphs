@@ -50,9 +50,6 @@ namespace Graphs
                 }
             }
             
-            tableLayoutPanel1.ColumnStyles.Clear();
-            tableLayoutPanel1.RowStyles.Clear();
-
             MatrixA = new int[CountGraph, CountGraph];
             ToAddValue();
         }
@@ -102,6 +99,8 @@ namespace Graphs
         private void Create_Box_Click(object sender, EventArgs e)
         {
             FillTable();
+            tableLayoutPanel1.ColumnStyles.Clear();
+            tableLayoutPanel1.RowStyles.Clear();
             button1.Visible = true;
         }
         private void ShowMatrix()

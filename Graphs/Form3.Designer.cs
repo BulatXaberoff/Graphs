@@ -68,7 +68,7 @@ namespace Graphs
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 160);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(442, 314);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // Create_Box
@@ -93,7 +93,7 @@ namespace Graphs
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(106, 327);
+            this.button1.Location = new System.Drawing.Point(144, 422);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(167, 31);
             this.button1.TabIndex = 18;
@@ -107,7 +107,7 @@ namespace Graphs
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Location = new System.Drawing.Point(15, 76);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(374, 186);
+            this.panel1.Size = new System.Drawing.Size(470, 340);
             this.panel1.TabIndex = 19;
             // 
             // Form3

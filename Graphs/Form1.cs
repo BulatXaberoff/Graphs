@@ -25,6 +25,7 @@ namespace Graphs
             V = new List<Vertex>();
             G = new DrawG(picture.Width, picture.Height);
             E = new List<Edge>();
+            AMatrix = new int[V.Count,V.Count];
             picture.Image = G.GetBitmap();
             label1.Text = "Таблица смежности\n";
             label2.Text = "Таблица инцендентности\n";
@@ -144,20 +145,16 @@ namespace Graphs
                                 G.drawSelectedVertex(V[i].x, V[i].y);
                                 selected1 = -1;
                                 selected2 = -1;
-                                finishV = i;                                
+                                finishV = i;
+                                G.clearSheet();
+                                G.drawALLGraph(V, E);
+                                SearchAndDrawShortPath();
                                 picture.Image = G.GetBitmap();
                                 break;
                             }
                             
                         }
-                    }                   
-                    //foreach (var vertex in V)
-                    //{
-                    //    if (vertex.)
-                    //    {
-
-                    //    }
-                    //}
+                    }
                 }
                 if (e.Button == MouseButtons.Right)
                 {
@@ -167,62 +164,6 @@ namespace Graphs
                         G.drawVertex(V[selected1].x, V[selected1].y, (selected1 + 1).ToString());
                         selected1 = -1;
                         picture.Image = G.GetBitmap();
-                    }
-                }
-            }
-            if (selectButton.Enabled == false)
-            {
-                for (int i = 1; i <= V.Count; i++)
-                {
-                    if (Math.Pow((V[i - 1].x - e.X), 2) + Math.Pow((V[i - 1].y - e.Y), 2) <= G.R * G.R)
-                    {
-                        if (selected1 != -1)
-                        {
-                            selected1 = -1;
-                            G.clearSheet();
-                            G.drawALLGraph(V, E);
-                            picture.Image = G.GetBitmap();
-                        }
-                        if (selected1 == -1)
-                        {
-                            G.drawSelectedVertex(V[i - 1].x, V[i - 1].y);
-                            selected1 = i - 1;
-                            picture.Image = G.GetBitmap();
-                            createAdjAndOut();
-                            int degree = 0;
-                            for (int j = 0; j < V.Count; j++)
-                                degree += AMatrix[selected1, j];
-                            string deg = $"deg({((char)('A' + i - 1)).ToString()})= {degree}";
-                            G.drawPow(e.X, e.Y, deg);
-                            picture.Image = G.GetBitmap();
-                            break;
-                        }
-                    }
-                    //Point point1 = new Point(e.X, e.Y);
-                    //Point point2 = new Point((V[i].x + V[i + 1].x) / 2, (V[i].y + V[i + 1].y) / 2);
-                    //InterSect interSect = InterSect.NoPoint;
-                    //InterSect res = new Circle(point1, 10) * new Circle(point2, 10);
-                    if (E.Count == i)
-                    {
-                        for (int j = 0; j < E.Count; j++)
-                        {
-                            if (AMatrix[E[j].v1, E[j].v2] == 1)
-                            {
-                                if (new Circle(new GPoint(e.X, e.Y), 10) *
-                            new Circle(new GPoint((V[E[j].v1].x + V[E[j].v2].x) / 2, (V[E[j].v1].y + V[E[j].v2].y) / 2), 10)
-                            != InterSect.NoPoint)
-                                {
-                                    Form2 newForm = new Form2();
-                                    newForm.ShowDialog();
-                                    E[j].weight = HelpClass.Weight;
-                                    G.EditEdge(V[E[j].v1], V[E[j].v2], E[j], j);
-                                    G.clearSheet();
-                                    G.drawALLGraph(V, E);
-                                    picture.Image = G.GetBitmap();
-                                    break;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -317,7 +258,7 @@ namespace Graphs
                                 Form2 newForm = new Form2();
                                 newForm.ShowDialog();
                                 E.Add(new Edge(selected1, selected2, HelpClass.Weight));
-                                G.drawEdge(V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
+                                G.drawEdge (V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
                                 selected1 = -1;
                                 selected2 = -1;
                                 picture.Image = G.GetBitmap();
@@ -490,8 +431,8 @@ namespace Graphs
         private void chainsSearch()
         {
             int[] color = new int[V.Count];
-            for (int i = 0; i < V.Count - 1; i++)
-                for (int j = i + 1; j < V.Count; j++)
+            for (int i = 0; i < V.Count; i++)
+                for (int j = i; j < V.Count; j++)
                 {
                     for (int k = 0; k < V.Count; k++)
                         color[k] = 1;
@@ -630,7 +571,17 @@ namespace Graphs
         {
             return obj.Split('\n').Select(x => x.ToString()).ToArray();
         }
-
+        private int[]CharToInt(string str)
+        {
+            int k;
+            int[] alf2 = new int[str.Length];
+            for (int i = 0; i < str.Length; i++)
+            {
+                k = (int)str[i] - (int)'A' + 1;
+                alf2[i] = k;
+            }
+            return alf2;
+        }
         private void button3_Click(object sender, EventArgs e)
         {
             int numer = comboBox1.SelectedIndex+1;
@@ -718,56 +669,19 @@ namespace Graphs
                 case 3:
                     {
                         listBoxMatrix.Items.Clear();
-                        int subgraphcount = 0;
-                        for (int i = 1; i <= E.Count; i++)
-                        {
-                            subgraphcount += F(E.Count) / (F(i) * F(E.Count - i));
-                        }
-                        string result = "Количество подграфов в графе равно:\n " + subgraphcount;
-                        listBoxMatrix.Items.AddRange(ToConvertStringArr(result));
+                        //int subgraphcount = 0;
+                        //for (int i = 1; i <= E.Count; i++)
+                        //{
+                        //    subgraphcount += F(E.Count) / (F(i) * F(E.Count - i));
+                        //}
+                        //string result = "Количество подграфов в графе равно:\n " + subgraphcount;
+                        //listBoxMatrix.Items.AddRange(ToConvertStringArr(result));
+                        chainsSearch();
+                        listBoxMatrix.Items.Add("Всего подграфов " + listBoxMatrix.Items.Count);
                         break;
                     }
+                
                 case 4:
-                    {
-                        listBoxMatrix.Items.Clear();
-                        int size = 2;
-                        int i = 0;
-                        chainsSearchOne(startV,finishV);
-                        char startchar = (char)('A' + startV);
-                        char endchar = (char)('A' + finishV);
-                        List<string> paths = new List<string>();
-                        foreach (var item in listBoxMatrix.Items)
-                        {
-                            string[] words = item.ToString().Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                            string word = "";
-                            for (int j = 0; j < words.Length; j++)
-                            {
-                                word += words[j];
-                            }
-                            int index = word.IndexOf(endchar);
-                            if (index==-1)
-                            {
-                                continue;
-                            }
-                            if (word[index] == endchar)
-                            {
-                                paths.Add(word);
-                                continue;
-                            }
-                        }
-                        string m = paths[0];
-                        listBoxMatrix.Items.Clear();
-                        for (int j = 0; j < paths.Count; j++)
-                        {
-                            if (paths[j].Length<m.Length)
-                            {
-                                m = paths[j];
-                            }
-                        }
-                        listBoxMatrix.Items.Add(m);
-                        break;
-                    }
-                case 5:
                     {
                         int n = V.Count;
                         int count = 0;
@@ -798,10 +712,10 @@ namespace Graphs
                         listBoxMatrix.Items.Add(result);
                         break;
                     }
-                case 6:
+                case 5:
                     break;
                     
-                case 8:
+                case 7:
                     {
                         listBoxMatrix.Items.Clear();
                         catalogCycles = new List<string>();
@@ -816,7 +730,7 @@ namespace Graphs
                         break;
                     }
                     
-                case 9:
+                case 8:
                     {
                         int r = V.Count;
                         string reуs = "";
@@ -835,16 +749,94 @@ namespace Graphs
             }
         }
 
-        
-        private int F(int count)
+        private void SearchAndDrawShortPath()
         {
-            int temp = 1;
-            for (int i = count; i > 0; i--)
+            listBoxMatrix.Items.Clear();
+            if (startV > finishV)
+                Swap(ref startV, ref finishV);
+            chainsSearchOne(startV, finishV);
+            char startchar = (char)('A' + startV);
+            char endchar = (char)('A' + finishV);
+            List<string> paths = new List<string>();
+            int index = -1;
+            List<string> temppath = new List<string>();
+            foreach (var item in listBoxMatrix.Items)
             {
-                temp *= i;
+                string[] words = item.ToString().Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                string word = "";
+                for (int j = 0; j < words.Length; j++)
+                {
+                    word += words[j];
+                }
+                index = word.IndexOf(endchar);
+                if (index == -1)
+                {
+                    continue;
+                }
+                if (word[index] == endchar)
+                {
+                    paths.Add(word);
+                    continue;
+                }
+            }
+            try
+            {
+                string m = MinWord(paths);
+                var temp = m;
+                int[] numbers = new int[m.Length];
+                listBoxMatrix.Items.Clear();
+                if (m.Length > 2)
+                {
+                    while (temp.Length >= 2)
+                    {
+                        numbers = CharToInt(temp);
+                        G.drawEdgeOptimal(V[numbers[0] - 1], V[numbers[1] - 1]);
+                        temp = temp.Remove(0, 1);
+                    }
+                }
+                else
+                {
+                    G.drawEdgeOptimal(V[startV], V[finishV]);
+                }
+
+                listBoxMatrix.Items.Add("Кратчайший путь: " + m);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Графы не соединены");
+            }
+            
+        }
+
+        private void Swap(ref int startV,ref int finishV)
+        {
+            int temp = startV;
+            startV = finishV;
+            finishV = temp;
+        }
+
+        private string MinWord(List<string> path)
+        {
+            var temp = path[0];
+            foreach (var item in path)
+            {
+                if (item.Length<temp.Length)
+                {
+                    temp = item;
+                }
             }
             return temp;
         }
+
+        //private int F(int count)
+        //{
+        //    int temp = 1;
+        //    for (int i = count; i > 0; i--)
+        //    {
+        //        temp *= i;
+        //    }
+        //    return temp;
+        //}
 
         private int [,] FillAMatrix(int [,]arr,int Vcount)
         {
@@ -865,6 +857,8 @@ namespace Graphs
             V.Clear();
             E.Clear();
             G.clearSheet();
+            HelpClass.Size = 0;
+            HelpClass.AdjMatrix = new int[HelpClass.Size, HelpClass.Size];
             picture.Image = G.GetBitmap();
             listBoxMatrix.Items.Clear();
             label1.Text = "";
@@ -933,12 +927,16 @@ namespace Graphs
             listBoxMatrix.Items.Clear();
             label1.Text = "";
             label2.Text = "";
-            
-            Generate();
-            ToBuildPath(V.Count);
+            try
+            {
+                Generate();
+                ToBuildPath(V.Count);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }        
         }
-
-       
     }
 }

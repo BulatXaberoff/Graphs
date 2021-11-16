@@ -80,6 +80,10 @@ namespace Graphs
                 drawVertex(V2.x, V2.y, (E.v2 + 1).ToString());
             }
         }
+        public void drawEdgeOptimal(Vertex V1, Vertex V2)
+        {
+            gr.DrawLine(redPen, V1.x, V1.y, V2.x, V2.y);
+        }
         public void EditEdge(Vertex V1, Vertex V2, Edge E, int numberE)
         {
             point = new PointF((V1.x + V2.x) / 2, (V1.y + V2.y) / 2);
