@@ -114,16 +114,18 @@ namespace Graphs
                 HelpClass.AdjMatrix = new int[HelpClass.Size, HelpClass.Size];
                 picture.Image = G.GetBitmap();
                 listBoxMatrix.Items.Clear();
-                label1.Text = "";
-                label2.Text = "";
+                label1.Text = "Таблица смежности\n";
+                label2.Text = "Таблица инцендентности\n";
             }
         }   
 
         private void picture_MouseClick(object sender, MouseEventArgs e)
         {
             createAdjAndOut();
-            if(Path_Button.Enabled==false)
+            createIncAndOut();
+            if (Path_Button.Enabled==false)
             {
+                listBoxMatrix.Items.Clear();
                 if (e.Button == MouseButtons.Left)
                 {
                     for (int i = 0; i < V.Count; i++)
@@ -187,6 +189,7 @@ namespace Graphs
                             selected1 = i - 1;
                             picture.Image = G.GetBitmap();
                             createAdjAndOut();
+                            createIncAndOut();
                             int degree = 0;
                             for (int j = 0; j < V.Count; j++)
                                 degree += AMatrix[selected1, j];
@@ -356,13 +359,13 @@ namespace Graphs
             //listBoxMatrix.Items.Clear();
             string sOut = "    ";
             for (int i = 0; i < V.Count; i++)
-                sOut += (i + 1) + " ";
+                sOut += (char)('A' + i) + " ";
             sOut += "\n";
             label1.Text = sOut;
             //listBoxMatrix.Items.Add(sOut);
             for (int i = 0; i < V.Count; i++)
             {
-                sOut = (i + 1) + " | ";
+                sOut = (char)('A' + i) + " | ";
                 for (int j = 0; j < V.Count; j++)
                     sOut += AMatrix[i, j] + " ";
                 sOut += "\n";
@@ -383,18 +386,18 @@ namespace Graphs
                 //listBoxMatrix.Items.Clear();
                 string sOut = "    ";
                 for (int i = 0; i < E.Count; i++)
-                    sOut += (char)('A' + i) + " ";
+                    sOut += (char)('a' + i) + " ";
                 sOut += "\n";
                 label2.Text = sOut;
-                listBoxMatrix.Items.Add(sOut);
+                //listBoxMatrix.Items.Add(sOut);
                 for (int i = 0; i < V.Count; i++)
                 {
-                    sOut = (i + 1) + " | ";
+                    sOut = (char)('A' + i) + " | ";
                     for (int j = 0; j < E.Count; j++)
                         sOut += IMatrix[i, j] + " ";
                     sOut += "\n";
                     label2.Text += sOut;
-                    listBoxMatrix.Items.Add(sOut);
+                    //listBoxMatrix.Items.Add(sOut);
                 }
             }
             else
@@ -411,7 +414,7 @@ namespace Graphs
             else
             {
                 listBoxMatrix.Items.Add(s);
-                label2.Text += s+"\n";
+                //label2.Text += s+"\n";
                 return;
             }
             for (int w = 0; w < E.Count; w++)
@@ -451,7 +454,7 @@ namespace Graphs
             {
                 s += " " + count;
                 listBoxMatrix.Items.Add(s);
-                label2.Text += s + "\n";
+                //label2.Text += s + "\n";
                 return;
             }
             for (int w = 0; w < E.Count; w++)
@@ -595,6 +598,7 @@ namespace Graphs
                         int count = 0;
                         string res = "Sigma\n";
                         createAdjAndOut();
+                        createIncAndOut();
                         G.clearSheet();
                         G.drawALLGraph(V, E);
                         picture.Image = G.GetBitmap();
@@ -713,8 +717,25 @@ namespace Graphs
                         break;
                     }
                 case 5:
+                    if(!Path_Button.Enabled&&listBoxMatrix.Items.Count!=0)
+                    {
+                        listBoxMatrix.Items.Add("Является простым путем");
+                    }
+                    else
+                    {
+                        listBoxMatrix.Items.Add("Наверное вы не задали путь");
+                    }
                     break;
-                    
+                case 6:
+                    if (!Path_Button.Enabled&&listBoxMatrix.Items.Count!=0)
+                    {
+                        listBoxMatrix.Items.Add("Не является циклом");
+                    }
+                    else
+                    {
+                        listBoxMatrix.Items.Add("Наверное вы не задали путь");
+                    }
+                    break;
                 case 7:
                     {
                         listBoxMatrix.Items.Clear();

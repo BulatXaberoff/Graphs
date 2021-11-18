@@ -35,7 +35,6 @@ namespace Graphs
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Create_Graphs_Button = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.Path_Button = new System.Windows.Forms.Button();
             this.deleteALLButton = new System.Windows.Forms.Button();
@@ -91,9 +90,9 @@ namespace Graphs
             "Справедливость теоремы",
             "Подсчет числа вершин",
             "Количество подграфов в графе",
-            "Проверка на связность",
+            "Проверка графа на связность",
+            "Проверка пути на простоту пути",
             "Проверка пути на цикличность",
-            "Проверка на простоту цикла",
             "Вычисление количество циклов",
             "Проверка полноты графа"});
             this.comboBox1.Location = new System.Drawing.Point(872, 313);
@@ -110,15 +109,6 @@ namespace Graphs
             this.Create_Graphs_Button.Text = "Создать граф 2-м способом";
             this.Create_Graphs_Button.UseVisualStyleBackColor = true;
             this.Create_Graphs_Button.Click += new System.EventHandler(this.Create_Graphs_Button_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(142, 550);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "label3";
             // 
             // button1
             // 
@@ -207,7 +197,6 @@ namespace Graphs
             this.ClientSize = new System.Drawing.Size(1338, 672);
             this.Controls.Add(this.Path_Button);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.Create_Graphs_Button);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button3);
@@ -242,7 +231,6 @@ namespace Graphs
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button Create_Graphs_Button;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Path_Button;
     }
