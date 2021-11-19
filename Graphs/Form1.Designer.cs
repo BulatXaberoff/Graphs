@@ -1,7 +1,7 @@
 ﻿
 namespace Graphs
 {
-    partial class Form1
+    partial class Graphs
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,6 +29,7 @@ namespace Graphs
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Graphs));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxMatrix = new System.Windows.Forms.ListBox();
@@ -74,7 +75,7 @@ namespace Graphs
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(883, 355);
+            this.button3.Location = new System.Drawing.Point(1078, 362);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(150, 44);
             this.button3.TabIndex = 13;
@@ -93,9 +94,10 @@ namespace Graphs
             "Проверка графа на связность",
             "Проверка пути на простоту пути",
             "Проверка пути на цикличность",
-            "Вычисление количество циклов",
+            "Вычисление количество простых циклов",
+            "Вычисление количество простых путей",
             "Проверка полноты графа"});
-            this.comboBox1.Location = new System.Drawing.Point(872, 313);
+            this.comboBox1.Location = new System.Drawing.Point(1067, 320);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(232, 26);
             this.comboBox1.TabIndex = 14;
@@ -123,7 +125,7 @@ namespace Graphs
             // Path_Button
             // 
             this.Path_Button.Image = global::Graphs.Properties.Resources.mark;
-            this.Path_Button.Location = new System.Drawing.Point(956, 85);
+            this.Path_Button.Location = new System.Drawing.Point(1151, 92);
             this.Path_Button.Name = "Path_Button";
             this.Path_Button.Size = new System.Drawing.Size(68, 63);
             this.Path_Button.TabIndex = 18;
@@ -133,7 +135,7 @@ namespace Graphs
             // deleteALLButton
             // 
             this.deleteALLButton.Image = global::Graphs.Properties.Resources.Мусорка;
-            this.deleteALLButton.Location = new System.Drawing.Point(895, 236);
+            this.deleteALLButton.Location = new System.Drawing.Point(1090, 243);
             this.deleteALLButton.Name = "deleteALLButton";
             this.deleteALLButton.Size = new System.Drawing.Size(45, 45);
             this.deleteALLButton.TabIndex = 5;
@@ -143,7 +145,7 @@ namespace Graphs
             // deleteButton
             // 
             this.deleteButton.Image = global::Graphs.Properties.Resources.delete;
-            this.deleteButton.Location = new System.Drawing.Point(895, 185);
+            this.deleteButton.Location = new System.Drawing.Point(1090, 192);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(45, 45);
             this.deleteButton.TabIndex = 4;
@@ -153,7 +155,7 @@ namespace Graphs
             // drawEdgeButton
             // 
             this.drawEdgeButton.Image = global::Graphs.Properties.Resources.Edge;
-            this.drawEdgeButton.Location = new System.Drawing.Point(895, 134);
+            this.drawEdgeButton.Location = new System.Drawing.Point(1090, 141);
             this.drawEdgeButton.Name = "drawEdgeButton";
             this.drawEdgeButton.Size = new System.Drawing.Size(45, 45);
             this.drawEdgeButton.TabIndex = 3;
@@ -163,7 +165,7 @@ namespace Graphs
             // drawVertexButton
             // 
             this.drawVertexButton.Image = global::Graphs.Properties.Resources.Graph;
-            this.drawVertexButton.Location = new System.Drawing.Point(895, 83);
+            this.drawVertexButton.Location = new System.Drawing.Point(1090, 90);
             this.drawVertexButton.Name = "drawVertexButton";
             this.drawVertexButton.Size = new System.Drawing.Size(45, 45);
             this.drawVertexButton.TabIndex = 2;
@@ -174,7 +176,7 @@ namespace Graphs
             // 
             this.selectButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.selectButton.Image = global::Graphs.Properties.Resources.mouse;
-            this.selectButton.Location = new System.Drawing.Point(895, 32);
+            this.selectButton.Location = new System.Drawing.Point(1090, 39);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(45, 45);
             this.selectButton.TabIndex = 1;
@@ -185,12 +187,12 @@ namespace Graphs
             // 
             this.picture.Location = new System.Drawing.Point(212, 12);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(641, 484);
+            this.picture.Size = new System.Drawing.Size(826, 484);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             this.picture.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picture_MouseClick);
             // 
-            // Form1
+            // Graphs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -209,8 +211,9 @@ namespace Graphs
             this.Controls.Add(this.drawVertexButton);
             this.Controls.Add(this.selectButton);
             this.Controls.Add(this.picture);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Graphs";
+            this.Text = "Отрисовка Графов.Хабиров Булат 4301-21";
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

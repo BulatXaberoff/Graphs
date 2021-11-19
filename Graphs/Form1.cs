@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Graphs
 {
-    public partial class Form1 : Form
+    public partial class Graphs : System.Windows.Forms.Form
     {
         DrawG G;
         List<Vertex> V;
@@ -19,7 +19,8 @@ namespace Graphs
         int startV;
         int finishV;
         List<string> catalogCycles;
-        public Form1()
+        List<string> catalogChains;
+        public Graphs()
         {
             InitializeComponent();
             V = new List<Vertex>();
@@ -258,9 +259,9 @@ namespace Graphs
 
                                 G.drawSelectedVertex(V[i].x, V[i].y);
                                 selected2 = i;
-                                Form2 newForm = new Form2();
-                                newForm.ShowDialog();
-                                E.Add(new Edge(selected1, selected2, HelpClass.Weight));
+                                //Form2 newForm = new Form2();
+                                //newForm.ShowDialog();
+                                E.Add(new Edge(selected1, selected2, 1));
                                 G.drawEdge (V[selected1], V[selected2], E[E.Count - 1], E.Count - 1);
                                 selected1 = -1;
                                 selected2 = -1;
@@ -414,6 +415,7 @@ namespace Graphs
             else
             {
                 listBoxMatrix.Items.Add(s);
+                catalogChains.Add(s);
                 //label2.Text += s+"\n";
                 return;
             }
@@ -431,18 +433,32 @@ namespace Graphs
                 }
             }
         }
-        private void chainsSearch()
+        private void chainsSearch(bool check=true)
         {
-            int[] color = new int[V.Count];
-            for (int i = 0; i < V.Count; i++)
-                for (int j = i; j < V.Count; j++)
-                {
-                    for (int k = 0; k < V.Count; k++)
-                        color[k] = 1;
-                    DFSchain(i, j, E, color, ((char)('A' + i)).ToString());
-                    //поскольку в C# нумерация элементов начинается с нуля, то
-                    //для удобочитаемости результатов в строку передаем i + 1
-                }
+            if (check)
+            {
+                int[] color = new int[V.Count];
+                for (int i = 0; i < V.Count; i++)
+                    for (int j = i; j < V.Count; j++)
+                    {
+                        for (int k = 0; k < V.Count; k++)
+                            color[k] = 1;
+                        DFSchain(i, j, E, color, ((char)('A' + i)).ToString());
+                        //поскольку в C# нумерация элементов начинается с нуля, то
+                        //для удобочитаемости результатов в строку передаем i + 1
+                    }
+            }
+            else
+            {
+                int[] color = new int[V.Count];
+                for (int i = 0; i < V.Count - 1; i++)
+                    for (int j = i + 1; j < V.Count; j++)
+                    {
+                        for (int k = 0; k < V.Count; k++)
+                            color[k] = 1;
+                        DFSchain(i, j, E, color, ((char)('A' + i)).ToString());
+                    }
+            }
         }
         private void DFSchainOne(int u, int endV, List<Edge> E, int[] color, string s)
         {
@@ -747,11 +763,28 @@ namespace Graphs
                             z++;
                             listBoxMatrix.Items.Add(item);
                         }
-                        listBoxMatrix.Items.Add("Количество циклов: "+z);
+                        listBoxMatrix.Items.Add("Количество простых циклов: "+z);
                         break;
                     }
-                    
                 case 8:
+                    {
+                        listBoxMatrix.Items.Clear();
+                        listBoxMatrix.Items.Add("Простые пути");
+                        catalogChains = new List<string>();
+                        chainsSearch(false);
+                        int z = 0;
+                       
+                        foreach (var itema in catalogChains)
+                        {
+                            z++;
+                            listBoxMatrix.Items.Add(itema);
+                        }
+                        listBoxMatrix.Items.Add("Количество простых путей: " + z);
+                        listBoxMatrix.MouseDoubleClick += ListBoxMatrix_MouseDoubleClick; 
+                        
+                    }
+                    break;
+                case 9:
                     {
                         int r = V.Count;
                         string reуs = "";
@@ -768,6 +801,19 @@ namespace Graphs
                 default:
                     break;
             }
+        }
+
+        private void ListBoxMatrix_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int s = listBoxMatrix.SelectedIndex;
+            var item = listBoxMatrix.Items;
+            string[] words = item[s].ToString().Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+            string word = "";
+            for (int j = 0; j < words.Length; j++)
+            {
+                word += words[j];
+            }
+            MessageBox.Show("Длина " +word+": " + word.Length);
         }
 
         private void SearchAndDrawShortPath()

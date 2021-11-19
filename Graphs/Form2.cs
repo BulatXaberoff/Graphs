@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Graphs
 {
-    public partial class Form2 : Form
+    public partial class Form2 : System.Windows.Forms.Form
     {
         public Form2()
         {

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Graphs
 {
-    public partial class Form3 : Form
+    public partial class Form3 : System.Windows.Forms.Form
     {
         public int CountGraph { get; set; }
         public int[,] MatrixA;
